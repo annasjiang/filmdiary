@@ -8,6 +8,8 @@ import { NavLink } from "react-router-dom";
 
 import logo from "./logo.png";
 
+import { BrowserRouter as Route, Link } from "react-router-dom";
+
 // Here, we display our Navbar
 export default function Navbar() {
   return (
@@ -35,6 +37,9 @@ export default function Navbar() {
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/">lists</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/search">search</a>
           </li>
         </ul>
         </div>
