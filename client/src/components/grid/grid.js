@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import MovieTile from "../movieTile/movieTile";
 import { Row, Col, } from 'react-bootstrap';
 import axios from "axios";
-//import { withAuth0 } from "@auth0/auth0-react";
 import Spinner from '../spinner/spinner'
 
 class Grid extends Component{

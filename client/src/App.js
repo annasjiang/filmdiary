@@ -11,6 +11,7 @@ import Edit from "./components/edit";
 import Create from "./components/create";
 import Search from "./components/search/search";
 import MoviePage from "./components/moviePage/moviePage";
+import List from './components/list/list'
 
 const MOVIE_API_URL = "https://www.omdbapi.com/?s=man&apikey=4a3b711b";
 
@@ -94,6 +95,7 @@ const App = () => {
           <Route exact path="/" element={<RecordList />} />
           <Route path="/search" element={<Search />} />
           <Route path="/movie/:id" render={(props) => <MoviePage {...props}/>} />
+          <Route path="/list" component={List} />
           <Route path="/edit/:id" element={<Edit />} />
           <Route path="/create" element={<Create />} />
         </Routes>
