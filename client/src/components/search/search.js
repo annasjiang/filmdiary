@@ -75,28 +75,20 @@ export default class Search extends Component {
 		{
 			var list = this.state.search_results.map(movieItem =>
 			<div key={movieItem.id} className="movieContent mx-5" display="flex" justifyContent="center" alignItems="center">
-				<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-					<Grid item xs={8}>
-						{(movieItem.poster_path!=null)?
-							(<div className="poster" >
-								<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-									<Grid item xs={8}>
-										<Link to={'/moviePage'}>
-											<img src={"https://image.tmdb.org/t/p/w185"+movieItem.poster_path+""} alt={movieItem.title}/>
-											<h3>{movieItem.title}</h3>
-										</Link>
-									</Grid>
-								</Grid>
-							</div>):
-							(<div className="poster"/>)
-						}
-						<div className="movieData">
-						</div>
-					</Grid>
-				</Grid>
+				{(movieItem.poster_path!=null)?
+					(<div className='container-fluid movie-app'>
+						<div className='row d-flex align-items-center mt-4 mb-4'>
+								<Link to={'/moviePage'}>
+									<img src={"https://image.tmdb.org/t/p/w185"+movieItem.poster_path+""} alt={movieItem.title}/>
+									<h3>{movieItem.title}</h3>
+								</Link>
+							</div>
+					</div>):
+					(<div className="poster"/>)
+				}
 			</div>);
 			return list
-		}
+		}	
 	}
 
 	async addToFav(e) {
@@ -144,7 +136,11 @@ export default class Search extends Component {
 				</div>
 				<hr className="myHR"/>
 				<br/>
-				{this.getMovieSearch()}
+				<Grid container rowSpacing={1} columnSpacing={1} justifyContent="space-evenly" alignItems="flex-start">
+
+							{this.getMovieSearch()}
+
+				</Grid>
 				<br/><br/><br/>
 			</div>
 
