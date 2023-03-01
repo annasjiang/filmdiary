@@ -1,12 +1,46 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
+import Rating from '@mui/material/Rating';
+
+import TextField from '@mui/material/TextField';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { format } from 'date-fns';
+
 export default function Create() {
+  const [rating, setRating] = React.useState();
+  const [value1, setValue1] = React.useState(null);
+
+  const updateRating = (newRating) => {
+    setRating(newRating);
+    console.log(rating);
+  }
+  const [inputs, setInputs] = React.useState({});
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs(values => ({...values, [name]: value}))
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const r = ratingRef.current.value;
+    const d = dateRef.current.value;
+    var dt = new Date(+d);
+    alert(r + ' ' + format(dt, 'MM/dd/yyyy'));
+  }
+
+  const dateRef = React.useRef();
+  const ratingRef = React.useRef();
+
   const [form, setForm] = useState({
     name: "",
     position: "",
     date: "",
-    // level: "",
+    rating: "",
   });
   const navigate = useNavigate();
 
@@ -20,9 +54,14 @@ export default function Create() {
   // This function will handle the submission.
   async function onSubmit(e) {
     e.preventDefault();
+    const d = dateRef.current.value;
+    var dt = new Date(+d);
 
     // When a post request is sent to the create url, we'll add a new record to the database.
     const newPerson = { ...form };
+    newPerson.date = format(dt, 'MM/dd/yyyy');
+    // alert(ratingRef.current.value);
+    newPerson.rating = ratingRef.current.value;
 
     await fetch("http://localhost:4000/record/add", {
       method: "POST",
@@ -36,7 +75,7 @@ export default function Create() {
       return;
     });
 
-    setForm({ name: "", position: "", date: "", level: "" });
+    setForm({ name: "", position: "", date: "", rating: "" });
     navigate("/");
   }
 
@@ -55,21 +94,55 @@ export default function Create() {
             onChange={(e) => updateForm({ name: e.target.value })}
           />
         </div>
-        <div className="form-group row">
-          <label htmlFor="date" className="col-form-label" style={{marginLeft: 15}} >ON:</label>
-          <div className="col-sm-3">
+
+        <div className="form-group row" style={{marginLeft: 5, marginRight: 5}}>
+          <label htmlFor="date" className="col-form-label">ON:</label>
+          <div className="col-lg">
             <input
+              name="entry"
               type="text"
-              className="form-control"
-              placeholder="dd/mm/yyyy"
-              id="date"
-              value={form.date}
-              onChange={(e) => updateForm({ date: e.target.value })}
+              value={value1}
+              ref={dateRef}
+              hidden
+              readOnly
+            />
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                mask="__/__/____"
+                value={value1}
+                onChange={(newValue) => {
+                  setValue1(newValue);
+                }}
+                renderInput={(params) => <TextField size="small" {...params} />}
+              />
+            </LocalizationProvider>
+          </div>
+
+          <div>
+          <input
+              name="rating"
+              type="number"
+              value={rating}
+              ref={ratingRef}
+              hidden
+              readOnly
+            />
+
+            <Rating
+            name="simple-controlled"
+            defaultValue={0}
+            value={rating}
+            // precision={0.5}
+            size="large"
+            onChange={(event, newValue) => {
+              updateRating(newValue)
+            }}
             />
           </div>
         </div>
+
         <div className="form-group">
-          {/* <label htmlFor="position"></label> */}
           <textarea
             type="text"
             className="form-control"
@@ -81,45 +154,8 @@ export default function Create() {
           />
         </div>
 
-        {/* <div className="form-group">
-          <div className="form-check form-check-inline">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="positionOptions"
-              id="positionIntern"
-              value="Intern"
-              checked={form.level === "Intern"}
-              onChange={(e) => updateForm({ level: e.target.value })}
-            />
-            <label htmlFor="positionIntern" className="form-check-label">Intern</label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="positionOptions"
-              id="positionJunior"
-              value="Junior"
-              checked={form.level === "Junior"}
-              onChange={(e) => updateForm({ level: e.target.value })}
-            />
-            <label htmlFor="positionJunior" className="form-check-label">Junior</label>
-          </div>
-          <div className="form-check form-check-inline">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="positionOptions"
-              id="positionSenior"
-              value="Senior"
-              checked={form.level === "Senior"}
-              onChange={(e) => updateForm({ level: e.target.value })}
-            />
-            <label htmlFor="positionSenior" className="form-check-label">Senior</label>
-          </div>
-        </div> */}
         <div className="form-group text-right">
+          <a href="/" class="btn btn-secondary mr-3" role="button">CANCEL</a>
           <input
             type="submit"
             value="LOG"

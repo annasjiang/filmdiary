@@ -43,7 +43,7 @@ recordRoutes.route("/record/add").post(function (req, response) {
     name: req.body.name,
     position: req.body.position,
     date: req.body.date,
-    // level: req.body.level,
+    rating: req.body.rating,
   };
   db_connect.collection("records").insertOne(myobj, function (err, res) {
     if (err) throw err;
@@ -60,7 +60,7 @@ recordRoutes.route("/update/:id").post(function (req, response) {
       name: req.body.name,
       position: req.body.position,
       date: req.body.date,
-      // level: req.body.level,
+      rating: req.body.rating,
     },
   };
   db_connect
