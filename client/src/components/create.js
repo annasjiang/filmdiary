@@ -3,11 +3,24 @@ import { useNavigate } from "react-router";
 import poster from './poster.jpg';
 
 import Rating from '@mui/material/Rating';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { format } from 'date-fns';
+// import Stack from '@mui/material/Stack';
+
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+// const theme = createTheme({
+//   palette: {
+//     neutral: {
+//       main: '#64748B',
+//       contrastText: '#fff',
+//     },
+//   },
+// });
 
 export default function Create() {
   // rating and date
@@ -162,6 +175,24 @@ export default function Create() {
               value="LOG"
               className="btn btn-success"
             />
+            {/* <Stack direction="row" spacing={2}>
+            <ThemeProvider theme={theme}>
+              <Button color="neutral"
+                id="basic-button"
+                size="large"
+                variant="outlined"
+                onClick={() => {
+                  navigate("/");
+                }}
+              >Cancel</Button>
+              <Button color="success"
+                id="basic-button"
+                type="submit"
+                size="large"
+                variant="outlined"
+              >Log</Button>
+            </ThemeProvider>
+            </Stack> */}
           </div>
           </form>
           </div>
