@@ -8,8 +8,9 @@ Follow our progess on [our blog](https://giddyxroddy.tumblr.com/)!
 To begin our process, we created some mockups of our UI on Figma. You can access the files [here](https://www.figma.com/file/eXmLRPK87lixrUbTIWt6vj/Film-Diary?node-id=0%3A1&t=pu79JIqV9nKcAnLG-1).
 
 ## 🏃🏻‍♀️ Instructions to Run
-- connect to mongodb database
+- connect to mongodb database with current ip address
 - make sure `package-lock.json` and `node_modules` are deleted
+- run `npm cache clean` then initialize with `npm init` in both client and server folder
 - run `npm install` in both client and server folder
 - run `npm start` in both client and server folder
 
