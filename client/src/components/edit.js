@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router";
 import poster from './poster.jpg';
 
 import Rating from '@mui/material/Rating';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -19,29 +18,14 @@ export default function Edit() {
     setRating(newRating);
     console.log(rating);
   }
-  const [inputs, setInputs] = React.useState({});
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs(values => ({...values, [name]: value}))
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const r = ratingRef.current.value;
-    const d = dateRef.current.value;
-    var dt = new Date(+d);
-    alert(r + ' ' + format(dt, 'MM/dd/yyyy'));
-  }
 
   const dateRef = React.useRef();
   const ratingRef = React.useRef();
 
-  // og
+  // get review data from form
   const [form, setForm] = useState({
     name: "",
-    position: "",
+    review: "",
     date: "",
     rating: "",
     records: [],
@@ -91,7 +75,7 @@ export default function Edit() {
 
     const editedPerson = {
       name: form.name,
-      position: form.position,
+      review: form.review,
       date: dt,
       rating: ratingRef.current.value,
     };
@@ -120,92 +104,92 @@ export default function Edit() {
                 <img src={poster} class="img-fluid"/>
             </div>
             <div class="col">
-            <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">I WATCHED... </label>
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            value={form.name}
-            onChange={(e) => updateForm({ name: e.target.value })}
-          />
-        </div>
+              <form onSubmit={onSubmit}>
+                <div className="form-group">
+                  {/* film title */}
+                  <label htmlFor="name">I WATCHED... </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    value={form.name}
+                    onChange={(e) => updateForm({ name: e.target.value })}
+                  />
+                </div>
 
-        <div className="form-group row" style={{marginLeft: 5, marginRight: 5}}>
-          <label htmlFor="date" className="col-form-label">ON:</label>
-          <div className="col-lg">
-            <input
-              name="entry"
-              type="text"
-              value={value1}
-              ref={dateRef}
-              hidden
-              readOnly
-            />
+                {/* date and rating */}
+                <div className="form-group row" style={{marginLeft: 5, marginRight: 5}}>
+                  <label htmlFor="date" className="col-form-label">ON:</label>
+                  <div className="col-lg">
+                    <input
+                      name="entry"
+                      type="text"
+                      value={value1}
+                      ref={dateRef}
+                      hidden
+                      readOnly
+                    />
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                mask="__/__/____"
-                value={value1}
-                onChange={(newValue) => {
-                  setValue1(newValue);
-                }}
-                disableFuture
-                renderInput={(params) => <TextField size="small" {...params} />}
-              />
-            </LocalizationProvider>
-          </div>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        mask="__/__/____"
+                        value={value1}
+                        onChange={(newValue) => {
+                          setValue1(newValue);
+                        }}
+                        disableFuture
+                        renderInput={(params) => <TextField size="small" {...params} />}
+                      />
+                    </LocalizationProvider>
+                  </div>
 
-          <div>
-          <input
-              name="rating"
-              type="number"
-              value={rating}
-              ref={ratingRef}
-              hidden
-              readOnly
-            />
+                  <div>
+                  <input
+                      name="rating"
+                      type="number"
+                      value={rating}
+                      ref={ratingRef}
+                      hidden
+                      readOnly
+                    />
 
-            <Rating
-            name="simple-controlled"
-            defaultValue={rating}
-            value={rating}
-            // precision={0.5}
-            size="large"
-            onChange={(event, newValue) => updateRating(newValue)
-            }
-            />
-          </div>
-        </div>
+                    <Rating
+                    name="simple-controlled"
+                    defaultValue={rating}
+                    value={rating}
+                    // precision={0.5}
+                    size="large"
+                    onChange={(event, newValue) => updateRating(newValue)
+                    }
+                    />
+                  </div>
+                </div>
 
-        <div className="form-group">
-          <textarea
-            type="text"
-            className="form-control"
-            id="position"
-            rows="8"
-            value={form.position}
-            onChange={(e) => updateForm({ position: e.target.value })}
-          />
-        </div>
+                {/* review */}
+                <div className="form-group">
+                  <textarea
+                    type="text"
+                    className="form-control"
+                    id="review"
+                    rows="8"
+                    value={form.review}
+                    onChange={(e) => updateForm({ review: e.target.value })}
+                  />
+                </div>
 
-        <div className="form-group text-right">
-
-          <a href={`/review/${params.id}`} class="btn btn-light mr-3" role="button">CANCEL</a>
-          
-          <input
-            type="submit"
-            value="SAVE"
-            className="btn btn-success"
-          />
-        </div>
-      </form>
-
+                {/* cancel/submit button */}
+                <div className="form-group text-right">
+                  <a href={`/review/${params.id}`} class="btn btn-light mr-3" role="button">CANCEL</a>                 
+                  <input
+                    type="submit"
+                    value="SAVE"
+                    className="btn btn-success"
+                  />
+                </div>
+              </form>
             </div>
-        </div>
-    </div>
-      
+          </div>
+        </div>     
     </div>
   );
 }

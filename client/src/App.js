@@ -7,10 +7,13 @@ import { Route, Routes } from "react-router-dom";
 
 // We import all the components we need in our app
 import Navbar from "./components/navbar";
-import RecordList from "./components/recordList";
+import Diary from "./components/diary";
 import Edit from "./components/edit";
 import Create from "./components/create";
 import Review from "./components/review";
+import Lists from "./components/lists";
+import CreateList from "./components/editList";
+import EditList from "./components/createList";
 
 const App = () => {
   return (
@@ -18,10 +21,13 @@ const App = () => {
       <Navbar />
       <div style={{ margin: 20 }}>
       <Routes>
-        <Route exact path="/" element={<RecordList />} />
+        <Route exact path="/" element={<Diary />} />
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/create" element={<Create />} />
         <Route path="/review/:id" element={<Review />} />
+        <Route path="/lists" element={<Lists />} />
+        <Route path="/createlist" element={<CreateList />} />
+        <Route path="/editlist" element={<EditList />} />
       </Routes>
       </div>
     </div>

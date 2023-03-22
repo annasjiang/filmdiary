@@ -14,7 +14,7 @@ const ObjectId = require("mongodb").ObjectId;
 
 // This section will help you get a list of all the records.
 recordRoutes.route("/record").get(function (req, res) {
-  let db_connect = dbo.getDb("employees");
+  let db_connect = dbo.getDb("filmdiary");
   db_connect
     .collection("records")
     .find({})
@@ -41,7 +41,7 @@ recordRoutes.route("/record/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
     name: req.body.name,
-    position: req.body.position,
+    review: req.body.review,
     date: req.body.date,
     rating: req.body.rating,
   };
@@ -58,7 +58,7 @@ recordRoutes.route("/update/:id").post(function (req, response) {
   let newvalues = {
     $set: {
       name: req.body.name,
-      position: req.body.position,
+      review: req.body.review,
       date: req.body.date,
       rating: req.body.rating,
     },
