@@ -12,7 +12,7 @@ import logo from "./logo.png";
 export default function Navbar() {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <NavLink className="navbar-brand" to="/">
         <a><img src={logo} width="25" height="25" alt="Film Diary"/></a> FILM DIARY
         </NavLink>
@@ -28,7 +28,7 @@ export default function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="/">diary</a>
@@ -39,7 +39,7 @@ export default function Navbar() {
         </ul>
         </div>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className="collapse navbar-collapse justify-content-right" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
               <NavLink className="nav-link" to="/create">

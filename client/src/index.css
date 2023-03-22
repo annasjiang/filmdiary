@@ -1,24 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap');
+
 body {
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-      sans-serif;
+    font-family:'Raleway' !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
-code {
-font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+
+.App {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.table {
-  table-layout:fixed;
+.btn {
+  min-width: 100px !important;
 }
 
-.table td {
+/* truncate text on review list */
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+td>a {
   white-space: nowrap;
-  overflow: hidden;
+  display: block;
   text-overflow: ellipsis;
+  overflow: hidden;
+  
+}
+
+td>a>span {
+  white-space: nowrap;
+  
+}
+
+tr p {
+    display: -webkit-box;
+    max-width: 100%;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    padding: 0 !important;
+    margin: 0 !important;
 }
