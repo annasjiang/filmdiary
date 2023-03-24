@@ -24,6 +24,7 @@ const theme = createTheme({
   },
 });
 
+
 export default function View() {
   // dropdown menu
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -133,7 +134,7 @@ export default function View() {
             <img src={poster} class="img-fluid"/>
         </div>
         <div class="col">
-        <p> watched on {value1}
+        <p class="text-muted"> watched on {value1}
           <div class="float-right">
             <Rating
               name="simple-controlled"

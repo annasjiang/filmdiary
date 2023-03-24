@@ -7,13 +7,16 @@ import { Route, Routes } from "react-router-dom";
 
 // We import all the components we need in our app
 import Navbar from "./components/navbar";
+
 import Diary from "./components/diary";
 import Edit from "./components/edit";
 import Create from "./components/create";
 import Review from "./components/review";
+
 import Lists from "./components/lists";
-import CreateList from "./components/editList";
-import EditList from "./components/createList";
+import EditList from "./components/editList";
+import CreateList from "./components/createList";
+import ViewList from "./components/viewList";
 
 const App = () => {
   return (
@@ -25,9 +28,11 @@ const App = () => {
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/create" element={<Create />} />
         <Route path="/review/:id" element={<Review />} />
+
         <Route path="/lists" element={<Lists />} />
+        <Route path="/editlist/:id" element={<EditList />} />
         <Route path="/createlist" element={<CreateList />} />
-        <Route path="/editlist" element={<EditList />} />
+        <Route path="/list/:id" element={<ViewList />} />
       </Routes>
       </div>
     </div>

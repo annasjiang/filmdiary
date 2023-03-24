@@ -55,7 +55,7 @@ export default function Diary() {
       <td class="col-md-2"><img src={poster} class="img-fluid"/></td>
       <td>
         <b>{props.record.name}</b> <br></br>
-        watched on {props.record.date} <br></br>
+        <p class="text-muted">watched on {props.record.date}</p>
         <Rating
             name="simple-controlled"
             defaultValue={props.record.rating}

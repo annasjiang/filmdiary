@@ -1,68 +1,57 @@
-import Rating from '@mui/material/Rating';
 import poster from './poster.jpg';
 import React, { useEffect, useState } from "react";
 
 export default function Lists() {
-  const [records, setRecords] = useState([]);
+  const [lists, setLists] = useState([]);
   const [show, setShow] = useState(false);
 
-  // This method fetches the records from the database.
+  // This method fetches the lists from the database.
   useEffect(() => {
-    async function getRecords() {
-      const response = await fetch(`http://localhost:4000/record/`);
+    async function getLists() {
+      const response = await fetch(`http://localhost:4000/list/`);
       if (!response.ok) {
         const message = `An error occured: ${response.statusText}`;
         window.alert(message);
         return;
       }
-      const records = await response.json();
-      // sort by date new -> old
-      var sortedData= records.sort((function (a, b) { return new Date(b.date) - new Date(a.date) }));
-      setRecords(sortedData);
+      const lists = await response.json();
+      setLists(lists);
     }
-    getRecords();
+    getLists();
     return; 
-  }, [records.length]);
+  }, [lists.length]);
 
-  // This method will delete a record
-  async function deleteRecord(deleteId) {
-    alert(deleteId);
+  // This method will delete a list
+  async function deleteList(deleteId) {
     await fetch(`http://localhost:4000/${deleteId}`, {
       method: "DELETE"
     });
 
-    const newRecords = records.filter((el) => el._id !== deleteId);
-    setRecords(newRecords);
+    const newLists = lists.filter((el) => el._id !== deleteId);
+    setLists(newLists);
   }
 
-  // This method will map out the records on the table
-  function recordList() {
-    return records.map((record) => {
+  // This method will map out the lists on the table
+  function listList() {
+    return lists.map((list) => {
       return (
-        <Record
-          record={record}
-          deleteRecord={() => deleteRecord(record._id)}
-          key={record._id}
+        <List
+          list={list}
+          deleteList={() => deleteList(list._id)}
+          key={list._id}
         />
       );
     });
   }
 
   // get reviews
-  const Record = (props) => (
-    <a href={`/review/${props.record._id}`} style={{ textDecoration: 'none', color: 'black'}}>
+  const List = (props) => (
+    <a href={`/list/${props.list._id}`} style={{ textDecoration: 'none', color: 'black'}}>
     <tr> 
       <td class="col-md-2"><img src={poster} class="img-fluid"/></td>
       <td>
-        <b>{props.record.name}</b> <br></br>
-        watched on {props.record.date} <br></br>
-        <Rating
-            name="simple-controlled"
-            defaultValue={props.record.rating}
-            value={props.record.rating}
-            size="small"
-            readOnly/> <br></br>
-        <p>{props.record.review}</p>
+        <b>{props.list.name}</b> <br></br>
+        <p class="text-muted">{props.list.description}</p>
       </td>
     </tr>
     </a>
@@ -73,7 +62,7 @@ export default function Lists() {
     <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
       <h3>My Lists</h3>
       <table className="table table-hover" style={{ marginTop: 20 }}>
-        <tbody>{recordList()}</tbody>
+        <tbody>{listList()}</tbody>
       </table>
     </div>
   );
