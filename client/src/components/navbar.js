@@ -8,7 +8,6 @@ import { NavLink } from "react-router-dom";
 
 import logo from "./logo.png";
 
-<<<<<<< HEAD
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -24,9 +23,6 @@ const theme = createTheme({
     },
   },
 });
-=======
-import { BrowserRouter as Route, Link } from "react-router-dom";
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
 
 // Here, we display our Navbar
 export default function Navbar() {

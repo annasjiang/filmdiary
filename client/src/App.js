@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
-=======
-import React, { useReducer, useEffect } from "react";
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import { Button, Modal } from 'react-bootstrap';
@@ -16,7 +12,6 @@ import Navbar from "./components/navbar";
 import Diary from "./components/diary";
 import Edit from "./components/edit";
 import Create from "./components/create";
-<<<<<<< HEAD
 import Review from "./components/review";
 
 import Lists from "./components/lists";
@@ -33,18 +28,10 @@ const App = () => {
     return <Login setToken={setToken} />
   }
   
-=======
-import Search from "./components/search/search";
-import MoviePage from "./components/moviePage/moviePage";
-
-
-const App = () => {   
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
   return (
     <div>
       <Navbar />
       <div style={{ margin: 20 }}>
-<<<<<<< HEAD
       <Routes>
         <Route exact path="/" element={<Diary />} />
         <Route path="/edit/:id" element={<Edit />} />
@@ -56,16 +43,6 @@ const App = () => {
         <Route path="/createlist" element={<CreateList />} />
         <Route path="/list/:id" element={<ViewList />} />
       </Routes>
-=======
-        <Routes>
-          <Route exact path="/" element={<RecordList />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/moviePage" element={<MoviePage />} />
-          {/* <Route path="/movies/:id" render={(props) => <MoviePage {...props}/>} /> */}
-          <Route path="/edit/:id" element={<Edit />} />
-          <Route path="/create" element={<Create />} />
-        </Routes>
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
       </div>
     </div>
     

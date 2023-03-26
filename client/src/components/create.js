@@ -1,21 +1,14 @@
 import React, { useState } from "react";
-<<<<<<< HEAD
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import poster from './poster.jpg';
 
 import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
-=======
-import { useNavigate } from "react-router-dom";
-
-import Rating from '@mui/material/Rating';
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { format } from 'date-fns';
-<<<<<<< HEAD
 // import Stack from '@mui/material/Stack';
 
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -31,10 +24,6 @@ import { format } from 'date-fns';
 
 export default function Create() {
   // rating and date
-=======
-
-export default function Create() {
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
   const [rating, setRating] = React.useState();
   const [value1, setValue1] = React.useState(null);
 
@@ -43,32 +32,10 @@ export default function Create() {
     console.log(rating);
   }
 
-<<<<<<< HEAD
   const dateRef = React.useRef();
   const ratingRef = React.useRef();
 
   // form
-=======
-  const [inputs, setInputs] = React.useState({});
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs(values => ({...values, [name]: value}))
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const r = ratingRef.current.value;
-    const d = dateRef.current.value;
-    var dt = new Date(+d);
-    alert(r + ' ' + format(dt, 'MM/dd/yyyy'));
-  }
-  
-  const dateRef = React.useRef();
-  const ratingRef = React.useRef();
-
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
   const [form, setForm] = useState({
     name: "",
     review: "",
@@ -88,12 +55,8 @@ export default function Create() {
   // This function will handle the submission.
   async function onSubmit(e) {
     e.preventDefault();
-<<<<<<< HEAD
     // if no date entered, default is today's date
     const d = isNaN(dateRef.current.value) ? dateRef.current.value : new Date();
-=======
-    const d = dateRef.current.value;
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
     var dt = new Date(+d);
 
     // When a post request is sent to the create url, we'll add a new record to the database.
@@ -113,17 +76,12 @@ export default function Create() {
       return;
     });
 
-<<<<<<< HEAD
     setForm({ name: "", review: "", date: "", rating: "" });
-=======
-    setForm({ name: "", position: "", date: "", rating: "" });
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
     navigate("/");
   }
 
   // This following section will display the form that takes the input from the user.
   return (
-<<<<<<< HEAD
     <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
       <div class="container">
         <h3>New Review</h3>
@@ -153,25 +111,6 @@ export default function Create() {
             <label htmlFor="date" className="col-form-label">ON:</label>
             <div className="col-lg">
               <input
-=======
-    <div style={{marginTop: 50, marginLeft: 300, marginRight: 300}}>
-      <h3>NEW REVIEW</h3>
-      <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">I WATCHED...</label>
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            value={form.name}
-            onChange={(e) => updateForm({ name: e.target.value })}
-          />
-        </div>
-        <div className="form-group row" style={{marginLeft: 5, marginRight: 5}}>
-          <label htmlFor="date" className="col-form-label">ON:</label>
-          <div className="col-lg">
-            <input
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
                 name="entry"
                 type="text"
                 value={value1}
@@ -187,21 +126,14 @@ export default function Create() {
                   onChange={(newValue) => {
                     setValue1(newValue);
                   }}
-<<<<<<< HEAD
                   disableFuture
-=======
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
                   renderInput={(params) => <TextField size="small" {...params} />}
                 />
               </LocalizationProvider>
             </div>
 
             <div>
-<<<<<<< HEAD
               <input
-=======
-            <input
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
                 name="rating"
                 type="number"
                 value={rating}
@@ -211,7 +143,6 @@ export default function Create() {
               />
 
               <Rating
-<<<<<<< HEAD
                 name="simple-controlled"
                 defaultValue={0}
                 value={rating}
@@ -220,29 +151,15 @@ export default function Create() {
                 onChange={(event, newValue) => {
                   updateRating(newValue)
                 }}
-=======
-              name="simple-controlled"
-              defaultValue={0}
-              value={rating}
-              // precision={0.5}
-              size="large"
-              onChange={(event, newValue) => {
-                updateRating(newValue)
-              }}
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
               />
             </div>
           </div>
 
-<<<<<<< HEAD
           {/* review */}
-=======
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
           <div className="form-group">
             <textarea
               type="text"
               className="form-control"
-<<<<<<< HEAD
               rows="8"
               placeholder="ADD A REVIEW..."
               id="review"
@@ -285,26 +202,3 @@ export default function Create() {
     </div>
   );
 }
-=======
-              rows="5"
-              placeholder="ADD A REVIEW..."
-              id="position"
-              value={form.position}
-              onChange={(e) => updateForm({ position: e.target.value })}
-            />
-          </div>
-
-          <div className="form-group text-right">
-            <a href="/" class="btn btn-secondary mr-3" role="button">CANCEL</a>
-            <input
-              type="submit"
-              value="LOG"
-              className="btn btn-primary"
-            />
-          </div>
-        </form>
-      </div>
-    );
-  }
-      
->>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
