@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { useParams, useNavigate } from "react-router";
 import poster from './poster.jpg';
 
 import Rating from '@mui/material/Rating';
+=======
+import { useParams, useNavigate } from "react-router-dom";
+
+import Rating from '@mui/material/Rating';
+
+>>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -10,6 +17,10 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { format } from 'date-fns';
 
 export default function Edit() {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
   // rating and date
   const [rating, setRating] = React.useState(null);
   const [value1, setValue1] = React.useState(null);
@@ -18,11 +29,32 @@ export default function Edit() {
     setRating(newRating);
     console.log(rating);
   }
+<<<<<<< HEAD
+=======
+  const [inputs, setInputs] = React.useState({});
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs(values => ({...values, [name]: value}))
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const r = ratingRef.current.value;
+    const d = dateRef.current.value;
+    var dt = new Date(+d);
+    alert(r + ' ' + format(dt, 'MM/dd/yyyy'));
+  }
+>>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
 
   const dateRef = React.useRef();
   const ratingRef = React.useRef();
 
+<<<<<<< HEAD
   // get review data from form
+=======
+>>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
   const [form, setForm] = useState({
     name: "",
     review: "",
@@ -75,7 +107,11 @@ export default function Edit() {
 
     const editedPerson = {
       name: form.name,
+<<<<<<< HEAD
       review: form.review,
+=======
+      position: form.position,
+>>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
       date: dt,
       rating: ratingRef.current.value,
     };
@@ -94,6 +130,7 @@ export default function Edit() {
 
   // This following section will display the form that takes input from the user to update the data.
   return (
+<<<<<<< HEAD
     <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
       <div class="container">
       <h3>Edit Review</h3></div> <br></br>
@@ -190,6 +227,88 @@ export default function Edit() {
             </div>
           </div>
         </div>     
+=======
+    <div style={{marginTop: 50, marginLeft: 300, marginRight: 300}}>
+      <h3>Edit Review</h3>
+      <form onSubmit={onSubmit}>
+        <div className="form-group">
+          <label htmlFor="name">I WATCHED... </label>
+          <input
+            type="text"
+            className="form-control"
+            id="name"
+            value={form.name}
+            onChange={(e) => updateForm({ name: e.target.value })}
+          />
+        </div>
+        <div className="form-group row" style={{marginLeft: 5, marginRight: 5}}>
+          <label htmlFor="date" className="col-form-label">ON:</label>
+          <div className="col-lg">
+            <input
+              name="entry"
+              type="text"
+              value={value1}
+              ref={dateRef}
+              hidden
+              readOnly
+            />
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                mask="__/__/____"
+                value={value1}
+                onChange={(newValue) => {
+                  setValue1(newValue);
+                }}
+                renderInput={(params) => <TextField size="small" {...params} />}
+              />
+            </LocalizationProvider>
+          </div>
+
+          <div>
+          <input
+              name="rating"
+              type="number"
+              value={rating}
+              ref={ratingRef}
+              hidden
+              readOnly
+            />
+
+            <Rating
+            name="simple-controlled"
+            defaultValue={rating}
+            value={rating}
+            // precision={0.5}
+            size="large"
+            onChange={(event, newValue) => updateRating(newValue)
+            }
+            />
+          </div>
+        </div>
+
+        <div className="form-group">
+          <textarea
+            type="text"
+            className="form-control"
+            id="position"
+            rows="5"
+            value={form.position}
+            onChange={(e) => updateForm({ position: e.target.value })}
+          />
+        </div>
+
+        <div className="form-group text-right">
+          <a href="/" class="btn btn-secondary mr-3" role="button">CANCEL</a>
+
+          <input
+            type="submit"
+            value="SAVE"
+            className="btn btn-primary"
+          />
+        </div>
+      </form>
+>>>>>>> 67a542c6e0fdb9406b1a924abe3ea7337861fffd
     </div>
   );
 }
