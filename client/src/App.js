@@ -20,9 +20,20 @@ import CreateList from "./components/createList";
 import ViewList from "./components/viewList";
 
 import Login from "./components/login";
+import useToken from './components/useToken';
+
+function setToken(userToken) {
+  sessionStorage.setItem('token', JSON.stringify(userToken));
+}
+
+function getToken() {
+  const tokenString = sessionStorage.getItem('token');
+  const userToken = JSON.parse(tokenString);
+  return userToken?.token
+}
 
 const App = () => {
-  const [token, setToken] = useState();
+  const { token, setToken } = useToken();
 
   if(!token) {
     return <Login setToken={setToken} />
@@ -33,11 +44,12 @@ const App = () => {
       <Navbar />
       <div style={{ margin: 20 }}>
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route exact path="/" element={<Diary />} />
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/create" element={<Create />} />
         <Route path="/review/:id" element={<Review />} />
-
+        
         <Route path="/lists" element={<Lists />} />
         <Route path="/editlist/:id" element={<EditList />} />
         <Route path="/createlist" element={<CreateList />} />
