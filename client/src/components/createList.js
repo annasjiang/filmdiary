@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Search from "./search/search";
 
 import TextField from '@mui/material/TextField';
 
@@ -78,6 +79,7 @@ export default function CreateList() {
         />    
       </div> <br></br>
       <div class="container"><TextField fullWidth id="outlined-basic" label="ADD FILMS..." variant="outlined" /></div> 
+      <Search/>
       <br></br>
       <div className="form-group text-right container">
         <a href="/lists" class="btn btn-light mr-3" role="button">CANCEL</a>

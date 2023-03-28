@@ -13,6 +13,7 @@ import Diary from "./components/diary";
 import Edit from "./components/edit";
 import Create from "./components/create";
 import Review from "./components/review";
+import Search from "./components/search/search";
 
 import Lists from "./components/lists";
 import EditList from "./components/editList";
@@ -49,11 +50,14 @@ const App = () => {
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/create" element={<Create />} />
         <Route path="/review/:id" element={<Review />} />
+        <Route path="/search" element={<Search />} />
         
         <Route path="/lists" element={<Lists />} />
         <Route path="/editlist/:id" element={<EditList />} />
         <Route path="/createlist" element={<CreateList />} />
         <Route path="/list/:id" element={<ViewList />} />
+
+        
       </Routes>
       </div>
     </div>

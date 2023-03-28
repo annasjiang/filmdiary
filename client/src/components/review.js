@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import poster from './poster.jpg';
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
