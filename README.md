@@ -12,5 +12,6 @@ To begin our process, we created some mockups of our UI on Figma. You can access
 - make sure `package-lock.json` and `node_modules` are deleted
 - run `npm cache clean` then initialize with `npm init` in both client and server folder
 - run `npm install` in both client and server folder
+    - if there are still errors when running, run `- npm install node --reinstall-packages-from=node` in client folder
 - run `npm start` in both client and server folder
 
