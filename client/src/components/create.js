@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import poster from './poster.jpg';
+import blankposter from './poster.jpg';
 
 import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
@@ -9,6 +9,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { format } from 'date-fns';
+
+import Search from "./search/search";
+import Movie from "./search/movie";
 // import Stack from '@mui/material/Stack';
 
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -24,16 +27,21 @@ import { format } from 'date-fns';
 
 export default function Create() {
   // rating and date
+  const [name, setName] = React.useState();
   const [rating, setRating] = React.useState();
   const [value1, setValue1] = React.useState(null);
+  // const [posterPath, setPosterPath] = React.useState();
+  
 
   const updateRating = (newRating) => {
     setRating(newRating);
-    console.log(rating);
+    // console.log(rating);
   }
 
+  const nameRef = React.useRef();
   const dateRef = React.useRef();
   const ratingRef = React.useRef();
+  // const posterRef = React.useRef();
 
   // form
   const [form, setForm] = useState({
@@ -41,6 +49,7 @@ export default function Create() {
     review: "",
     date: "",
     rating: "",
+    poster: "",
   });
   
   const navigate = useNavigate();
@@ -61,8 +70,10 @@ export default function Create() {
 
     // When a post request is sent to the create url, we'll add a new record to the database.
     const newPerson = { ...form };
+    newPerson.name = nameRef.current.value;
     newPerson.date = format(dt, 'MM/dd/yyyy');
     newPerson.rating = ratingRef.current.value;
+    newPerson.poster = document.getElementById('poster').src;
 
     await fetch("http://localhost:4000/record/add", {
       method: "POST",
@@ -76,7 +87,7 @@ export default function Create() {
       return;
     });
 
-    setForm({ name: "", review: "", date: "", rating: "" });
+    setForm({ name: "", review: "", date: "", rating: "", poster: "" });
     navigate("/");
   }
 
@@ -90,7 +101,7 @@ export default function Create() {
         <div class="row">
           <div class="col-4 nopadding">
               {/* placeholder poster for now!! */}
-              <img src={poster} class="img-fluid"/>
+              <img id="poster" src={blankposter} class="img-fluid" style={{width: 300}}/>
           </div>
         <div class="col">
           <form onSubmit={onSubmit}>
@@ -101,9 +112,14 @@ export default function Create() {
                 type="text"
                 className="form-control"
                 id="name"
-                value={form.name}
-                onChange={(e) => updateForm({ name: e.target.value })}
+                value={name}
+                ref={nameRef}
+                onChange={(e) => updateForm({ name: e.target.value, poster: document.getElementById('poster').src })}
+                hidden
               />
+              <div>
+              <Search/>
+              </div>
           </div>
 
           {/* date and rating */}
@@ -149,7 +165,7 @@ export default function Create() {
                 // precision={0.5}
                 size="large"
                 onChange={(event, newValue) => {
-                  updateRating(newValue)
+                  updateRating(newValue);
                 }}
               />
             </div>

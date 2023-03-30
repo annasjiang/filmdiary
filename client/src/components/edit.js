@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import poster from './poster.jpg';
+import blankposter from './poster.jpg';
 
 import Rating from '@mui/material/Rating';
 import TextField from '@mui/material/TextField';
@@ -13,6 +13,7 @@ export default function Edit() {
   // rating and date
   const [rating, setRating] = React.useState(null);
   const [value1, setValue1] = React.useState(null);
+  const [posterPath, setPosterPath] = React.useState(null);
 
   const updateRating = (newRating) => {
     setRating(newRating);
@@ -28,6 +29,7 @@ export default function Edit() {
     review: "",
     date: "",
     rating: "",
+    poster: "",
     records: [],
   });
   const params = useParams();
@@ -54,6 +56,7 @@ export default function Edit() {
       setForm(record);
       setValue1(record.date);
       setRating(record.rating);
+      setPosterPath(record.poster);
     }
 
     fetchData();
@@ -78,6 +81,7 @@ export default function Edit() {
       review: form.review,
       date: dt,
       rating: ratingRef.current.value,
+      poster: form.poster,
     };
 
     // This will send a post request to update the data in the database.
@@ -98,13 +102,14 @@ export default function Edit() {
       <div class="container">
       <h3>Edit Review</h3></div> <br></br>
       <div class="container">
+      <form onSubmit={onSubmit}>
         <div class="row">
             <div class="col-4 nopadding">
                 {/* placeholder poster for now!! */}
-                <img src={poster} class="img-fluid"/>
+                <div className="form-group"><img src={posterPath} style={{width: 300}} class="img-fluid"/></div>
             </div>
             <div class="col">
-              <form onSubmit={onSubmit}>
+              {/* <form onSubmit={onSubmit}> */}
                 <div className="form-group">
                   {/* film title */}
                   <label htmlFor="name">I WATCHED... </label>
@@ -186,10 +191,11 @@ export default function Edit() {
                     className="btn btn-success"
                   />
                 </div>
-              </form>
+              {/* </form> */}
             </div>
           </div>
-        </div>     
+          </form>
+        </div>           
     </div>
   );
 }

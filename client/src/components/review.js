@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import poster from './poster.jpg';
+import blankposter from './poster.jpg';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 import Rating from '@mui/material/Rating';
@@ -52,6 +52,7 @@ export default function View() {
   // rating and date
   const [rating, setRating] = React.useState(null);
   const [value1, setValue1] = React.useState(null);
+  const [posterPath, setPosterPath] = React.useState(null);
 
   // review info
   const [form, setForm] = useState({
@@ -59,6 +60,7 @@ export default function View() {
     review: "",
     date: "",
     rating: "",
+    poster: "",
     records: [],
   });
   const params = useParams();
@@ -82,6 +84,7 @@ export default function View() {
       setForm(record);
       setValue1(record.date);
       setRating(record.rating);
+      setPosterPath(record.poster);
     }
     fetchData();
     return;
@@ -132,7 +135,7 @@ export default function View() {
       <div class="row">
         <div class="col-4 nopadding">
             {/* placeholder poster for now!! */}
-            <img src={poster} class="img-fluid"/>
+            <img src={posterPath} style={{width: 300}} class="img-fluid"/>
         </div>
         <div class="col">
         <p class="text-muted"> watched on {value1}

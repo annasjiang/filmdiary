@@ -1,5 +1,5 @@
 import Rating from '@mui/material/Rating';
-import poster from './poster.jpg';
+import blankposter from './poster.jpg';
 import React, { useEffect, useState } from "react";
 
 export default function Diary() {
@@ -52,7 +52,7 @@ export default function Diary() {
   const Record = (props) => (
     <a href={`/review/${props.record._id}`} style={{ textDecoration: 'none', color: 'black'}}>
     <tr> 
-      <td class="col-md-2"><img src={poster} class="img-fluid"/></td>
+      <td class="col-md-2"><img src={props.record.poster} class="img-fluid"/></td>
       <td>
         <b>{props.record.name}</b> <br></br>
         <p class="text-muted">watched on {props.record.date}</p>

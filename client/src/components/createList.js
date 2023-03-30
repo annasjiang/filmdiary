@@ -79,7 +79,7 @@ export default function CreateList() {
         />    
       </div> <br></br>
       <div class="container"><TextField fullWidth id="outlined-basic" label="ADD FILMS..." variant="outlined" /></div> 
-      <Search/>
+      <div class="container"><Search/></div>
       <br></br>
       <div className="form-group text-right container">
         <a href="/lists" class="btn btn-light mr-3" role="button">CANCEL</a>

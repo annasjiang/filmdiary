@@ -1,10 +1,11 @@
-.ContainerInner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding-top: 60px;
-}
-
-.ContainerInner > * {
-  margin-bottom: 30px;
+.searchresults {
+  position:absolute;
+  z-index:100;
+  overflow: scroll;
+  background-color: white;
+  border: 1px solid #eff1f3;
+  
+  width: 500px;
+  max-width: 500px;
+  max-height: 300px;
 }
