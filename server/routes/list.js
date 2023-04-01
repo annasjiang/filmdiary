@@ -42,6 +42,7 @@ listRoutes.route("/list/add").post(function (req, response) {
   let myobj = {
     name: req.body.name,
     description: req.body.description,
+    list: req.body.list,
   };
   db_connect.collection("lists").insertOne(myobj, function (err, res) {
     if (err) throw err;
@@ -57,6 +58,7 @@ listRoutes.route("/updatelist/:id").post(function (req, response) {
     $set: {
       name: req.body.name,
       description: req.body.description,
+      list: req.body.list,
     },
   };
   db_connect

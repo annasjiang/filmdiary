@@ -52,6 +52,8 @@ export default function Diary() {
   const Record = (props) => (
     <a href={`/review/${props.record._id}`} style={{ textDecoration: 'none', color: 'black'}}>
     <tr> 
+      {/* use thumbnails */}
+      {/* <td class="col-md-2"><img src={`http://image.tmdb.org/t/p/w185${props.record.poster.substring(34, 250)}`} class="img-fluid"/></td> */}
       <td class="col-md-2"><img src={props.record.poster} class="img-fluid"/></td>
       <td>
         <b>{props.record.name}</b> <br></br>

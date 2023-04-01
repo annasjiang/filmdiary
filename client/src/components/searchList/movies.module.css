@@ -1,0 +1,11 @@
+.searchresults {
+  position:absolute;
+  z-index:100;
+  overflow: scroll;
+  background-color: white;
+  border: 1px solid #eff1f3;
+  
+  width: 770px;
+  max-width: 770px;
+  max-height: 300px;
+}

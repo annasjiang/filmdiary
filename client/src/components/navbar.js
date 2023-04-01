@@ -62,9 +62,9 @@ export default function Navbar() {
           <li className="nav-item">
             <a className="nav-link" href="/lists">lists</a>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <a className="nav-link" href="/search">search</a>
-          </li>
+          </li> */}
         </ul>
         </div>
 

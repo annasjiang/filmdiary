@@ -9,8 +9,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { format } from 'date-fns';
 
+import Search from "./search/search";
+
 export default function Edit() {
   // rating and date
+  const [name, setName] = React.useState();
   const [rating, setRating] = React.useState(null);
   const [value1, setValue1] = React.useState(null);
   const [posterPath, setPosterPath] = React.useState(null);
@@ -20,6 +23,7 @@ export default function Edit() {
     console.log(rating);
   }
 
+  const nameRef = React.useRef();
   const dateRef = React.useRef();
   const ratingRef = React.useRef();
 
@@ -53,7 +57,12 @@ export default function Edit() {
         return;
       }
 
+      // set up saved values
       setForm(record);
+      setName(record.name);
+      // trigger a click so the search bar displays the title
+      document.getElementById('searchbar').click();
+      document.getElementById('searchbar').dispatchEvent(new Event('click'));
       setValue1(record.date);
       setRating(record.rating);
       setPosterPath(record.poster);
@@ -77,11 +86,11 @@ export default function Edit() {
     const dt = isNaN(d) ? d : format(new Date(+d), 'MM/dd/yyyy');
 
     const editedPerson = {
-      name: form.name,
+      name: nameRef.current.value,
       review: form.review,
       date: dt,
       rating: ratingRef.current.value,
-      poster: form.poster,
+      poster: document.getElementById('poster').src,
     };
 
     // This will send a post request to update the data in the database.
@@ -106,7 +115,7 @@ export default function Edit() {
         <div class="row">
             <div class="col-4 nopadding">
                 {/* placeholder poster for now!! */}
-                <div className="form-group"><img src={posterPath} style={{width: 300}} class="img-fluid"/></div>
+                <div className="form-group"><img id="poster" src={posterPath} style={{width: 300}} class="img-fluid"/></div>
             </div>
             <div class="col">
               {/* <form onSubmit={onSubmit}> */}
@@ -116,10 +125,21 @@ export default function Edit() {
                   <input
                     type="text"
                     className="form-control"
-                    id="name"
-                    value={form.name}
-                    onChange={(e) => updateForm({ name: e.target.value })}
+                    id="name-hidden"
+                    value={name}
+                    ref={nameRef}
+                    onChange={(e) => {
+                      updateForm({ name: e.target.value, poster: document.getElementById('poster').src }); 
+                      // document.getElementById('searchresults').style.visibility = "hidden";
+                    }}
+                    required
+                    // value={form.name}
+                    // onChange={(e) => updateForm({ name: e.target.value })}
+                    hidden
                   />
+                  <div>
+                    <Search/>
+                  </div>
                 </div>
 
                 {/* date and rating */}

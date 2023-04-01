@@ -1,10 +1,9 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useRef } from 'react';
 import axios from 'axios';
 
 import Movies from './movies';
 import { search } from './utils';
 import TextField from '@mui/material/TextField';
-
 
 class Search extends Component {
   state = {
@@ -19,7 +18,6 @@ class Search extends Component {
       `https://api.themoviedb.org/3/search/movie?query=${val}&api_key=dbc0a6d62448554c27b6167ef7dabb1b`
     );
     const movies = await res.data.results;
-    // document.getElementById('searchresults').style.visibility = "visible";
 
     this.setState({ movies, loading: false });
   };
@@ -27,13 +25,10 @@ class Search extends Component {
   onChangeHandler = async e => {
     this.search(e.target.value);
     this.setState({ value: e.target.value });
-    console.log(e.target.value);
-    // document.getElementById('searchresults').style.visibility = "visible";
   };
 
   onClickHandler = async e => {
-    // document.getElementById('searchresults').style.display = "block";
-    console.log(this.state.value);
+    this.setState({ value: document.getElementById('name-hidden').value });
   };
 
   get renderMovies() {
@@ -57,8 +52,17 @@ class Search extends Component {
           variant="outlined" 
           value={this.state.value}
           onChange={e => this.onChangeHandler(e)}
-          onClick={e => this.onClickHandler(e)}
+          onClick={(e) => {
+            this.onClickHandler(e);
+            // allow search again
+            if (document.getElementById('searchresults')) {
+              document.getElementById('searchresults').style.visibility = "visible";
+            }           
+          }}
           placeholder="Search for Films..."
+          required
+          size="small"
+          autoComplete='off'
         />
         <div>{this.renderMovies}</div>
       </div>

@@ -9,9 +9,10 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { format } from 'date-fns';
+import dayjs from 'dayjs';
 
 import Search from "./search/search";
-import Movie from "./search/movie";
+
 // import Stack from '@mui/material/Stack';
 
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -29,19 +30,15 @@ export default function Create() {
   // rating and date
   const [name, setName] = React.useState();
   const [rating, setRating] = React.useState();
-  const [value1, setValue1] = React.useState(null);
-  // const [posterPath, setPosterPath] = React.useState();
-  
+  const [value1, setValue1] = React.useState(dayjs(new Date()));
 
   const updateRating = (newRating) => {
     setRating(newRating);
-    // console.log(rating);
   }
 
   const nameRef = React.useRef();
-  const dateRef = React.useRef();
+  const dateRef = React.useRef(dayjs(new Date()));
   const ratingRef = React.useRef();
-  // const posterRef = React.useRef();
 
   // form
   const [form, setForm] = useState({
@@ -64,14 +61,17 @@ export default function Create() {
   // This function will handle the submission.
   async function onSubmit(e) {
     e.preventDefault();
-    // if no date entered, default is today's date
-    const d = isNaN(dateRef.current.value) ? dateRef.current.value : new Date();
-    var dt = new Date(+d);
+    // const d = isNaN(dateRef.current.value) ? new Date(+dateRef.current.value) : new Date();
+    // const d = dateRef.current.value;
+    // var dt = new Date(+d);
+    const d = dateRef.current.value;
+    const dt = isNaN(d) ? d : format(new Date(+d), 'MM/dd/yyyy');
 
     // When a post request is sent to the create url, we'll add a new record to the database.
     const newPerson = { ...form };
     newPerson.name = nameRef.current.value;
-    newPerson.date = format(dt, 'MM/dd/yyyy');
+    // newPerson.date = format(dt, 'MM/dd/yyyy');
+    newPerson.date= dt;
     newPerson.rating = ratingRef.current.value;
     newPerson.poster = document.getElementById('poster').src;
 
@@ -111,14 +111,20 @@ export default function Create() {
               <input
                 type="text"
                 className="form-control"
-                id="name"
+                id="name-hidden"
                 value={name}
                 ref={nameRef}
-                onChange={(e) => updateForm({ name: e.target.value, poster: document.getElementById('poster').src })}
+                onChange={(e) => {
+                  updateForm({ name: e.target.value, poster: document.getElementById('poster').src }); 
+                  // document.getElementById('searchresults').style.visibility = "hidden";
+                }}
+                required
                 hidden
               />
               <div>
-              <Search/>
+                <Search 
+                  // onClick={() => {document.getElementById('searchresults').style.visibility = "visible"}}
+                />
               </div>
           </div>
 
@@ -138,12 +144,14 @@ export default function Create() {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   mask="__/__/____"
+                  defaultValue={dayjs(new Date())}                 
                   value={value1}
                   onChange={(newValue) => {
                     setValue1(newValue);
                   }}
                   disableFuture
                   renderInput={(params) => <TextField size="small" {...params} />}
+                  // required
                 />
               </LocalizationProvider>
             </div>
