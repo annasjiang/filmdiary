@@ -1,34 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import poster from './poster.jpg';
-
-import Rating from '@mui/material/Rating';
 import TextField from '@mui/material/TextField';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { format } from 'date-fns';
-
 import Search from "./searchList/search";
-import {
-  Button,
-  Card,
-  Grid,
-  Input,
-  IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Stack,
-  Snackbar,
-  Slide,
-} from "@mui/material";
+import { Card, Grid, Table, TableBody, TableCell, TableContainer, TableRow, IconButton,} from "@mui/material";
 
 import DeleteIcon from '@mui/icons-material/Delete';
-// import TextField from '@mui/material/TextField';
 
 export default function EditList() {
   // table stuff
@@ -41,7 +17,6 @@ export default function EditList() {
 
   const generateRow = () => {
     return {
-        //id: rows.length + 1,
       id: 1,
       item: {title: "", year: "", poster: ""}
     }
@@ -65,11 +40,8 @@ export default function EditList() {
 
   const handleChange = (e, id) => {
     let value = e.target.value;
-    console.log("len=" + rows.length + " id="+id);
-    // if (id === rows.length) {
     if (id === 1) {
       if (value !== "") {
-//        setRows((prevRows) => [...prevRows, generateRow()]);
         for (let i = 0; i < rows.length; i++) {
             console.log(rows[i].id);
             rows[i].id=i+2;
@@ -84,28 +56,7 @@ export default function EditList() {
         handleDeleteRow(e, id + 1);
       }
     }
-    console.log("new len=" + rows.length );
-    //comment out
-    // setRows((prevRows) => {
-    //     return prevRows.map( (row, index) => index ===  id ? row : { item: value, ...row}, );
-    //   });
   }
-
- 
-
-  // const handleSave = () => {
-  //   let arr = [];
-  //   if (rows[rows.length - 1].item === "") {
-  //     arr = rows.slice(0, -1);
-  //   } else {
-  //     arr = rows;
-  //   }
-  //   let items = [];
-  //   for (let i = 0; i < arr.length; i++) {
-  //     items.push(arr[i].item);
-  //   }
-  //   window.sessionStorage.setItem("list", JSON.stringify(items));
-  // }
 
   const generateTable = () => {
     return (
@@ -327,7 +278,6 @@ return (
         type="text"
       />    
     </div> <br></br>
-    {/* <div class="container"><TextField fullWidth id="outlined-basic" label="ADD FILMS..." variant="outlined" /></div>  */}
     <div class="container"><Search/></div> <br></br>
     <div class="container">
       <Grid container>
@@ -336,8 +286,6 @@ return (
           <Card>
             <TableContainer>
               {tableData} {/* this variable will change to contain all data */}
-              <Stack direction={"row"}>
-              </Stack>
             </TableContainer>
           </Card>
         </Grid>
@@ -358,4 +306,3 @@ return (
   </div>  
 );
 }
-

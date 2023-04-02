@@ -1,11 +1,9 @@
 import Rating from '@mui/material/Rating';
-import blankposter from './poster.jpg';
 import defaultposter from './search/defaultposter.jpeg';
 import React, { useEffect, useState } from "react";
 
 export default function Diary() {
   const [records, setRecords] = useState([]);
-  const [show, setShow] = useState(false);
 
   // This method fetches the records from the database.
   useEffect(() => {
@@ -17,24 +15,12 @@ export default function Diary() {
         return;
       }
       const records = await response.json();
-      // sort by date new -> old
-      var sortedData= records.sort((function (a, b) { return new Date(b.date) - new Date(a.date) }));
-      setRecords(sortedData);
+      setRecords(records);
     }
     getRecords();
     return; 
   }, [records.length]);
 
-  // This method will delete a record
-  async function deleteRecord(deleteId) {
-    alert(deleteId);
-    await fetch(`http://localhost:4000/${deleteId}`, {
-      method: "DELETE"
-    });
-
-    const newRecords = records.filter((el) => el._id !== deleteId);
-    setRecords(newRecords);
-  }
 
   // This method will map out the records on the table
   function recordList() {
@@ -42,7 +28,6 @@ export default function Diary() {
       return (
         <Record
           record={record}
-          deleteRecord={() => deleteRecord(record._id)}
           key={record._id}
         />
       );
@@ -61,7 +46,6 @@ export default function Diary() {
           (<img src={`http://image.tmdb.org/t/p/w185${props.record.poster.substring(34, 250)}`} class="img-fluid"/>)
         }
       </td>
-      {/* <td class="col-md-2"><img src={props.record.poster} class="img-fluid"/></td> */}
       <td>
         <b style={{display: "inline", marginRight: 5}}>{props.record.name}</b>
         <p className='text-muted' style={{fontSize: 14, display: "inline"}}>({props.record.year})</p> 

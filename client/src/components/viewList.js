@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import poster from './poster.jpg';
 
-import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,26 +10,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import {
-  // Button,
-  Card,
-  Grid,
-  Input,
-  IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Stack,
-  Snackbar,
-  Slide,
-} from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
-
 import TextField from '@mui/material/TextField';
-
+import { Card, Grid, Table, TableBody, TableCell, TableContainer, TableRow} from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -43,139 +23,48 @@ const theme = createTheme({
   },
 });
 
-
 export default function ViewList() {
   // table stuff
-    // table stuff
-    const [rows, setRows] = useState([
-      {
-        id: 1,
-        item: {title: "", year:"", poster: ""}
-      }
-    ]);
-  
-    const generateRow = () => {
-      return {
-          //id: rows.length + 1,
-        id: 1,
-        item: {title: "", year:"", poster: ""}
-      }
+  const [rows, setRows] = useState([
+    {
+      id: 1,
+      item: {title: "", year:"", poster: ""}
     }
-  
-    const handleDeleteRow = (event, id) => {
-      setRows(rows => {
-        rows[id - 1].item["title"] = "";
-        for (let i = id - 1; i < rows.length; i++) {
-          rows[i].id--;
-        }
-      });
-  
-      setRows((prevRows) => {
-        return [
-          ...rows.slice(0, id - 1),
-          ...rows.slice(id),
-        ];
-      });
-    }
-  
-    const handleChange = (e, id) => {
-      let value = e.target.value;
-      console.log("len=" + rows.length + " id="+id);
-      // if (id === rows.length) {
-      if (id === 1) {
-        if (value !== "") {
-  //        setRows((prevRows) => [...prevRows, generateRow()]);
-          for (let i = 0; i < rows.length; i++) {
-              console.log(rows[i].id);
-              rows[i].id=i+2;
-          }
-         setRows((prevRows) => [generateRow(), ...prevRows]);
-         rows[0].item["title"]=value;
-         rows[0].item["poster"]=document.getElementById("addPosterToList").src;
-        }
-      } else if (id + 1 === rows.length) {
-        if (value === "") {
-          handleDeleteRow(e, id + 1);
-        }
-      }
-      console.log("new len=" + rows.length );
-      //comment out
-      // setRows((prevRows) => {
-      //     return prevRows.map( (row, index) => index ===  id ? row : { item: value, ...row}, );
-      //   });
-    }
-  
-   
-  
-    // const handleSave = () => {
-    //   let arr = [];
-    //   if (rows[rows.length - 1].item === "") {
-    //     arr = rows.slice(0, -1);
-    //   } else {
-    //     arr = rows;
-    //   }
-    //   let items = [];
-    //   for (let i = 0; i < arr.length; i++) {
-    //     items.push(arr[i].item);
-    //   }
-    //   window.sessionStorage.setItem("list", JSON.stringify(items));
-    // }
-  
-    const generateTable = () => {
-      return (
-        <Table>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row" id="poster" className="col-sm-1">
-                  <img id='addPosterToList' src={row.item["poster"]} style={{height :100}}></img>
-                </TableCell>
-                <TableCell component="th" scope="row" id="name" className="col-sm-7">
-                  <TextField 
-                    sx={{ fontWeight: 500 }}
-                    id='addFilmToList'
-                    // placeholder={"Add Item"} 
-                    // onClick={(e) => handleChange(e, row.id)} 
-                    value={row.item["title"]}
-                    fullWidth
-                    // autoComplete="off"
-                    variant="standard"
-                    InputProps={{ disableUnderline: true, readOnly: true, style: {fontWeight: 500}}}
-                  />
-                  <p id="addYearToList" className="text-muted">({row.item["year"]})</p>
-                </TableCell>
-              </TableRow>       
-            ))}
-          </TableBody>
-        </Table>
-      );
-    }
-    const [tableData, setTableData] = useState(generateTable());
-  
-    useEffect(() => {
-      setTableData(generateTable());
-    }, [rows])
+  ]);
 
-    // read info from local session and put into table
-    // useEffect(() => {
-    //   if (window.sessionStorage.getItem("list")) {
-    //     let sizes_arr = JSON.parse(form.list);
-    //     sizes_arr.push("")
-    //     let rows_arr = [];
-    //     for (let i = 0; i < sizes_arr.length; i++) {
-    //       rows_arr.push({
-    //         id: i+1,
-    //         item: sizes_arr[i]
-    //       })
-    //     }
-        
-    //     setRows(rows_arr);
-    //     setTableData(generateTable())
-    //   }
-    // }, [])
+  const generateTable = () => {
+    return (
+      <Table>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow
+              key={row.id}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row" id="poster" className="col-sm-1">
+                <img id='addPosterToList' src={row.item["poster"]} style={{height :100}}></img>
+              </TableCell>
+              <TableCell component="th" scope="row" id="name" className="col-sm-7">
+                <TextField 
+                  id='addFilmToList' 
+                  value={row.item["title"]}
+                  fullWidth
+                  variant="standard"
+                  InputProps={{ disableUnderline: true, readOnly: true, style: {fontWeight: 500}}}
+                />
+                <p id="addYearToList" className="text-muted">({row.item["year"]})</p>
+              </TableCell>
+            </TableRow>       
+          ))}
+        </TableBody>
+      </Table>
+    );
+  }
+  const [tableData, setTableData] = useState(generateTable());
+
+  useEffect(() => {
+    setTableData(generateTable());
+  }, [rows])
 
   // dropdown menu
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -227,17 +116,16 @@ export default function ViewList() {
       console.log(list.list);
 
       let sizes_arr = JSON.parse(list.list);
-        // sizes_arr.push("")
-        let rows_arr = [];
-        for (let i = 0; i < sizes_arr.length; i++) {
-          rows_arr.push({
-            id: i+1,
-            item: sizes_arr[i]
-          })
-        }
+      let rows_arr = [];
+      for (let i = 0; i < sizes_arr.length; i++) {
+        rows_arr.push({
+          id: i+1,
+          item: sizes_arr[i]
+        })
+      }
         
-        setRows(rows_arr);
-        setTableData(generateTable());
+      setRows(rows_arr);
+      setTableData(generateTable());
     }
     fetchData();
     return;
@@ -253,14 +141,14 @@ export default function ViewList() {
 
   return (
     <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
-    <div class="container">
-    <div class="row">
-      <div class="col nopadding">
+    <div className="container">
+    <div className="row">
+      <div className="col nopadding">
         <h3>{form.name}</h3>
       </div>
-      <div class="col col-1">
-        {/* <h3 style={{display: "inline"}}>{form.name}</h3> */}
-        <div class="float-right">
+      <div className="col col-1">
+        <div className
+        ="float-right">
           <ThemeProvider theme={theme}>
             {/* edit/delete button */}
             <Button color="neutral"
@@ -290,27 +178,18 @@ export default function ViewList() {
     <br></br>
     {
       form.description == "" ? (<></>) : ( 
-        <div class="container">
+        <div className="container">
           <p>{form.description}</p> <br></br>
         </div>
       )
     }
-    {/* <div class="container">
-      <p>{form.description}</p> 
-    </div>  */}
-    {/* <br></br> */}
     <div>
-    <div class="container">
+    <div className="container">
     <Grid container>
     <Grid item lg={12} justifyContent="center" display="flex">
       <Card>
         <TableContainer>
           {tableData} {/* this variable will change to contain all data */}
-          <Stack direction={"row"}>
-            {/* <Button onClick={handleSave}>
-              Save
-            </Button> */}
-          </Stack>
         </TableContainer>
       </Card>
     </Grid>

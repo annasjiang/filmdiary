@@ -18,7 +18,7 @@ recordRoutes.route("/record").get(function (req, res) {
   db_connect
     .collection("records")
     .find({})
-    .sort( { "_id": -1 } )
+    .sort( { "date": -1, "_id": -1 } )
     .toArray(function (err, result) {
       if (err) throw err;
       res.json(result);

@@ -1,23 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Search from "./searchList/search";
-import {
-  Button,
-  Card,
-  Grid,
-  Input,
-  IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Stack,
-  Snackbar,
-  Slide,
-} from "@mui/material";
-
+import { Card, Grid, Table, TableBody, TableCell, TableContainer, TableRow, IconButton,} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
 
@@ -56,13 +40,9 @@ export default function CreateList() {
 
   const handleChange = (e, id) => {
     let value = e.target.value;
-    // console.log("len=" + rows.length + " id="+id);
-    // if (id === rows.length) {
     if (id === 1) {
       if (value !== "") {
-//        setRows((prevRows) => [...prevRows, generateRow()]);
         for (let i = 0; i < rows.length; i++) {
-            // console.log(rows[i].id);
             rows[i].id=i+2;
         }
        setRows((prevRows) => [generateRow(), ...prevRows]);
@@ -75,28 +55,7 @@ export default function CreateList() {
         handleDeleteRow(e, id + 1);
       }
     }
-    // console.log("new len=" + rows.length );
-    //comment out
-    // setRows((prevRows) => {
-    //     return prevRows.map( (row, index) => index ===  id ? row : { item: value, ...row}, );
-    //   });
   }
-
- 
-
-  // const handleSave = () => {
-  //   let arr = [];
-  //   if (rows[rows.length - 1].item === "") {
-  //     arr = rows.slice(0, -1);
-  //   } else {
-  //     arr = rows;
-  //   }
-  //   let items = [];
-  //   for (let i = 0; i < arr.length; i++) {
-  //     items.push(arr[i].item);
-  //   }
-  //   window.sessionStorage.setItem("list", JSON.stringify(items));
-  // }
 
   const generateTable = () => {
     return (
@@ -214,17 +173,6 @@ export default function CreateList() {
       items.push(arr[i].item);
     }
 
-    // set thumbnail posters
-    // if (items.length > 1) {
-    //   setThumb1(arr[0].item.poster);
-    // }
-    // if (items.length > 2) {
-    //   setThumb2(arr[1].item.poster);
-    // }
-    // if (items.length > 3) {
-    //   setThumb3(arr[2].item.poster);
-    // }
-
     // set default list name
     const n = isNaN(form.name) ? form.name : "Untitled List";
 
@@ -241,10 +189,6 @@ export default function CreateList() {
     if (arr.length > 2) {
       newList.thumbnail3 = arr[2].item.poster;
     }
-    
-    // newList.thumbnail1 = thumb1;
-    // newList.thumbnail2 = thumb2;
-    // newList.thumbnail3 = thumb3;
     
     await fetch("http://localhost:4000/list/add", {
       method: "POST",
@@ -266,7 +210,7 @@ export default function CreateList() {
   return (
     <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
       <form onSubmit={onSubmit}>
-      <div class="container">
+      <div className="container">
         <TextField
           fullWidth
           id="outlined-multiline-flexible"
@@ -295,54 +239,23 @@ export default function CreateList() {
           type="text"
         />    
       </div> <br></br>
-      <div class="container"><TextField fullWidth id="outlined-basic" label="ADD FILMS..." variant="outlined" hidden/></div> 
-      <div class="container"><Search/></div> <br></br>
-      <div class="container">
+      <div className="container"><TextField fullWidth id="outlined-basic" label="ADD FILMS..." variant="outlined" hidden/></div> 
+      <div className="container"><Search/></div> <br></br>
+      <div className="container">
       <Grid container>
         <Grid item lg={12} justifyContent="center" display="flex">
           <Card>
             <TableContainer>
               {tableData} {/* this variable will change to contain all data */}
-              <Stack direction={"row"}>
-                {/* <Button onClick={handleSave}>
-                  Save
-                </Button> */}
-              </Stack>
             </TableContainer>
           </Card>
         </Grid>
         </Grid>
-        {/* <table className="table table-hover" id="buildinglist">
-          <tbody></tbody>
-        </table> */}
-            {/* <Input 
-              id="addtolist" 
-              placeholder={"Add Item"}
-              // onChange={(e) => handleChange(e)}
-              onClick={(e) => handleChange(e)}
-              // onClick={(e) => handleChange(e, row.id)} value={row.item} 
-              fullWidth
-              autoComplete="off"
-            />
-            <Grid container>
-              <Grid item lg={12} justifyContent="center" display="flex">
-                <Card>
-                  <TableContainer>
-                    {tableData} this variable will change to contain all data */}
-                    {/* <Stack direction={"row"}> */}
-                      {/* <Button onClick={handleSave}>
-                        Save
-                      </Button> */}
-                    {/* </Stack> */}
-                  {/* </TableContainer> */}
-                {/* </Card> */}
-              {/* </Grid> */}
-            {/* </Grid> */}
       </div>
       <br></br>
       
       <div className="form-group text-right container">
-        <a href="/lists" class="btn btn-light mr-3" role="button">CANCEL</a>
+        <a href="/lists" className="btn btn-light mr-3" role="button">CANCEL</a>
         <input
           type="submit"
           value="SAVE"

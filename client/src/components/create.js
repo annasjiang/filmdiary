@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import blankposter from './poster.jpg';
 
 import Rating from '@mui/material/Rating';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -12,19 +11,6 @@ import { format } from 'date-fns';
 import dayjs from 'dayjs';
 
 import Search from "./search/search";
-
-// import Stack from '@mui/material/Stack';
-
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-// const theme = createTheme({
-//   palette: {
-//     neutral: {
-//       main: '#64748B',
-//       contrastText: '#fff',
-//     },
-//   },
-// });
 
 export default function Create() {
   // rating and date
@@ -63,16 +49,12 @@ export default function Create() {
   // This function will handle the submission.
   async function onSubmit(e) {
     e.preventDefault();
-    // const d = isNaN(dateRef.current.value) ? new Date(+dateRef.current.value) : new Date();
-    // const d = dateRef.current.value;
-    // var dt = new Date(+d);
     const d = dateRef.current.value;
     const dt = isNaN(d) ? d : format(new Date(+d), 'MM/dd/yyyy');
 
     // When a post request is sent to the create url, we'll add a new record to the database.
     const newPerson = { ...form };
     newPerson.name = nameRef.current.value;
-    // newPerson.date = format(dt, 'MM/dd/yyyy');
     newPerson.date= dt;
     newPerson.rating = ratingRef.current.value;
     newPerson.year = document.getElementById('year-hidden').value;
@@ -118,8 +100,11 @@ export default function Create() {
                 value={name}
                 ref={nameRef}
                 onChange={(e) => {
-                  updateForm({ name: e.target.value, poster: document.getElementById('poster').src, year: document.getElementById('year-hidden').value }); 
-                  // document.getElementById('searchresults').style.visibility = "hidden";
+                  updateForm({ 
+                    name: e.target.value, 
+                    poster: document.getElementById('poster').src, 
+                    year: document.getElementById('year-hidden').value 
+                  }); 
                 }}
                 required
                 hidden
@@ -129,14 +114,9 @@ export default function Create() {
                 className="form-control"
                 id="year-hidden"
                 value={year}
-                // ref={nameRef}
                 hidden
               />
-              <div>
-                <Search 
-                  // onClick={() => {document.getElementById('searchresults').style.visibility = "visible"}}
-                />
-              </div>
+              <div><Search /></div>
           </div>
 
           {/* date and rating */}
@@ -162,7 +142,6 @@ export default function Create() {
                   }}
                   disableFuture
                   renderInput={(params) => <TextField size="small" {...params} />}
-                  // required
                 />
               </LocalizationProvider>
             </div>
@@ -181,7 +160,6 @@ export default function Create() {
                 name="simple-controlled"
                 defaultValue={0}
                 value={rating}
-                // precision={0.5}
                 size="large"
                 onChange={(event, newValue) => {
                   updateRating(newValue);
@@ -211,24 +189,6 @@ export default function Create() {
               value="LOG"
               className="btn btn-success"
             />
-            {/* <Stack direction="row" spacing={2}>
-            <ThemeProvider theme={theme}>
-              <Button color="neutral"
-                id="basic-button"
-                size="large"
-                variant="outlined"
-                onClick={() => {
-                  navigate("/");
-                }}
-              >Cancel</Button>
-              <Button color="success"
-                id="basic-button"
-                type="submit"
-                size="large"
-                variant="outlined"
-              >Log</Button>
-            </ThemeProvider>
-            </Stack> */}
           </div>
           </form>
           </div>

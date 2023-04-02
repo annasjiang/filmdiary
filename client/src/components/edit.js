@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import blankposter from './poster.jpg';
 
 import Rating from '@mui/material/Rating';
 import TextField from '@mui/material/TextField';
@@ -118,11 +117,9 @@ export default function Edit() {
       <form onSubmit={onSubmit}>
         <div class="row">
             <div class="col-4 nopadding">
-                {/* placeholder poster for now!! */}
                 <div className="form-group"><img id="poster" src={posterPath} style={{width: 300}} class="img-fluid"/></div>
             </div>
             <div class="col">
-              {/* <form onSubmit={onSubmit}> */}
                 <div className="form-group">
                   {/* film title */}
                   <label htmlFor="name">I WATCHED... </label>
@@ -133,22 +130,21 @@ export default function Edit() {
                     value={name}
                     ref={nameRef}
                     onChange={(e) => {
-                      updateForm({ name: e.target.value, poster: document.getElementById('poster').src }); 
-                      // document.getElementById('searchresults').style.visibility = "hidden";
+                      updateForm({ 
+                        name: e.target.value, 
+                        poster: document.getElementById('poster').src 
+                      }); 
                     }}
                     required
-                    // value={form.name}
-                    // onChange={(e) => updateForm({ name: e.target.value })}
                     hidden
                   />
-                   <input
-                type="text"
-                className="form-control"
-                id="year-hidden"
-                value={year}
-                // ref={nameRef}
-                hidden
-              />
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="year-hidden"
+                    value={year}
+                    hidden
+                  />
                   <div>
                     <Search/>
                   </div>
@@ -194,7 +190,6 @@ export default function Edit() {
                     name="simple-controlled"
                     defaultValue={rating}
                     value={rating}
-                    // precision={0.5}
                     size="large"
                     onChange={(event, newValue) => updateRating(newValue)
                     }
@@ -223,7 +218,6 @@ export default function Edit() {
                     className="btn btn-success"
                   />
                 </div>
-              {/* </form> */}
             </div>
           </div>
           </form>
