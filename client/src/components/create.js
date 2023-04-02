@@ -183,7 +183,7 @@ export default function Create() {
 
          {/* cancel/save */}
           <div className="form-group text-right">
-            <a href="/" class="btn btn-light mr-3" role="button">CANCEL</a>
+            <a href="/diary" class="btn btn-light mr-3" role="button">CANCEL</a>
             <input
               type="submit"
               value="LOG"
