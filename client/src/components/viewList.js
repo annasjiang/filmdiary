@@ -39,7 +39,10 @@ export default function ViewList() {
           {rows.map((row) => (
             <TableRow
               key={row.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              sx={{ 
+                '&:last-child td, &:last-child th': { border: 0 } ,
+                '&:first-child td, &:first-child th': { borderTop: 1, color: "#dee2e6" }
+              }}
             >
               <TableCell component="th" scope="row" id="poster" className="col-sm-1">
                 <img id='addPosterToList' src={row.item["poster"]} style={{height :100}}></img>
@@ -185,15 +188,15 @@ export default function ViewList() {
     }
     <div>
     <div className="container">
-    <Grid container>
-    <Grid item lg={12} justifyContent="center" display="flex">
-      <Card>
-        <TableContainer>
+    {/* <Grid container> */}
+    {/* <Grid item lg={12} justifyContent="center" display="flex"> */}
+      {/* <Card> */}
+        {/* <TableContainer> */}
           {tableData} {/* this variable will change to contain all data */}
-        </TableContainer>
-      </Card>
-    </Grid>
-    </Grid>
+        {/* </TableContainer> */}
+      {/* </Card> */}
+    {/* </Grid> */}
+    {/* </Grid> */}
     </div>
     </div>
 

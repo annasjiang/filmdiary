@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Card, Grid, Table, TableBody, TableCell, TableContainer, TableRow, IconButton,} from "@mui/material";
 import blankposter from './poster.jpg';
 import './lists.css';
 
@@ -47,8 +48,8 @@ export default function Lists() {
   // get reviews
   const List = (props) => (
     <a href={`/list/${props.list._id}`} style={{ textDecoration: 'none', color: 'black'}}>
-    <tr id="parent"> 
-      <td class="listpics avatars" style={{width:210}}>
+    <TableRow> 
+      <TableCell class="avatars" style={{width:210}}>
         {/* handle thumbnails */}
         <span class="avatar">
         {
@@ -71,13 +72,13 @@ export default function Lists() {
           (<img src={props.list.thumbnail1} class="img-fluid"/>)
         }
         </span>
-      </td>
+      </TableCell>
 
-      <td class="listinfo" style={{width:800}}>
+      <TableCell class="listinfo" style={{width:800}}>
         <b>{props.list.name}</b> <br></br>
         <p class="text-muted">{props.list.description}</p>
-      </td>
-    </tr>
+      </TableCell>
+    </TableRow>
     </a>
   );
 
@@ -86,9 +87,17 @@ export default function Lists() {
     <div class="table-container" style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
       <h3>My Lists</h3>
       <div className="parent">
-      <table className="listtable table table-responsive table-hover" style={{ marginTop: 20, }}>
-        <tbody className="fullWidth">{listList()}</tbody>
-      </table>
+      {/* <Grid container> */}
+      {/* <Grid item lg={12} justifyContent="center" display="flex"> */}
+        {/* <Card> */}
+          {/* <TableContainer>  */}
+        <Table className="listtable table table-responsive table-hover" style={{ marginTop: 20, }}>
+          <TableBody className="fullWidth">{listList()}</TableBody>
+        </Table>
+        {/* </TableContainer>  */}
+        {/* </Card> */}
+      {/* </Grid> */}
+      {/* </Grid> */}
       </div>
     </div>
   );
