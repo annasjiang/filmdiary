@@ -272,7 +272,8 @@ export default function CreateList() {
           id="outlined-multiline-flexible"
           placeholder="New List"
           multiline
-          rows={1}
+          // rows={1}
+          maxRows={10}
           variant="standard"
           InputProps={{ disableUnderline: true }}
           inputProps={{style: {fontSize: 28, fontWeight: 500}}} // font size of input text

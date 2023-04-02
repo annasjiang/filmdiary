@@ -96,15 +96,19 @@ export default function View() {
       await fetch(`http://localhost:4000/${deleteId}`, {
           method: "DELETE"
       });
-      navigate("/")
+      navigate("/diary")
   }
 
   return (
     <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
     <div class="container">
-      <h3 style={{display: "inline", marginRight: 10}}>{form.name}</h3>
-      <p class="text-muted" style={{fontSize: 22, display: "inline"}}>({form.year})</p>
-      <span><div class="float-right">
+    <div class="row">
+      <div class="col nopadding">
+        <h3 style={{display: "inline", marginRight: 10}}>{form.name}</h3>
+        <p class="text-muted" style={{fontSize: 22, display: "inline"}}>({form.year})</p>
+      </div>
+      <div class="col col-sm-1">
+      <div class="float-right">
         <ThemeProvider theme={theme}>
           {/* edit/delete button */}
           <Button color="neutral"
@@ -127,7 +131,9 @@ export default function View() {
           <MenuItem>Edit</MenuItem></Link>
           <MenuItem onClick={handleClickOpenAlert}>Delete</MenuItem>
         </Menu> 
-      </div></span>
+      </div>
+      </div>
+      </div>
     </div>
     <br></br>
 

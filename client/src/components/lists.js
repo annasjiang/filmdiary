@@ -4,7 +4,6 @@ import './lists.css';
 
 export default function Lists() {
   const [lists, setLists] = useState([]);
-  const [show, setShow] = useState(false);
 
   // This method fetches the lists from the database.
   useEffect(() => {
@@ -17,17 +16,6 @@ export default function Lists() {
       }
       const lists = await response.json();
       setLists(lists);
-
-      // let sizes_arr = JSON.parse(lists.list); 
-      // if (sizes_arr.length > 1) {
-      //   setPoster1(sizes_arr[0]["poster"]);
-      // }
-      // if (sizes_arr.length > 2) {
-      //   setPoster2(sizes_arr[1]["poster"]);
-      // }
-      // if (sizes_arr.length > 3) {
-      //   setPoster3(sizes_arr[2]["poster"]);
-      // }
     }
     getLists();
     return; 
@@ -60,7 +48,8 @@ export default function Lists() {
   const List = (props) => (
     <a href={`/list/${props.list._id}`} style={{ textDecoration: 'none', color: 'black'}}>
     <tr id="parent"> 
-      <td class="listpics avatars" style={{width:205}}>
+      <td class="listpics avatars" style={{width:210}}>
+        {/* handle thumbnails */}
         <span class="avatar">
         {
           props.list.thumbnail3 == "" ? 
@@ -96,9 +85,11 @@ export default function Lists() {
   return (
     <div class="table-container" style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
       <h3>My Lists</h3>
+      <div className="parent">
       <table className="listtable table table-responsive table-hover" style={{ marginTop: 20, }}>
         <tbody className="fullWidth">{listList()}</tbody>
       </table>
+      </div>
     </div>
   );
 }

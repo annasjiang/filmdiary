@@ -254,38 +254,53 @@ export default function ViewList() {
   return (
     <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
     <div class="container">
-    <h3>{form.name}
-      <div class="float-right">
-        <ThemeProvider theme={theme}>
-          {/* edit/delete button */}
-          <Button color="neutral"
-            id="basic-button"
-            aria-controls={open ? 'basic-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleClick}
-          >•••</Button>
-        </ThemeProvider>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}>
-          <Link to={`/editlist/${params.id}`} style={{ textDecoration: 'none', color: 'black'}}>
-          <MenuItem>Edit</MenuItem></Link>
-          <MenuItem onClick={handleClickOpenAlert}>Delete</MenuItem>
-        </Menu> 
+    <div class="row">
+      <div class="col nopadding">
+        <h3>{form.name}</h3>
       </div>
-    </h3>
+      <div class="col col-1">
+        {/* <h3 style={{display: "inline"}}>{form.name}</h3> */}
+        <div class="float-right">
+          <ThemeProvider theme={theme}>
+            {/* edit/delete button */}
+            <Button color="neutral"
+              id="basic-button"
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleClick}
+            >•••</Button>
+          </ThemeProvider>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}>
+            <Link to={`/editlist/${params.id}`} style={{ textDecoration: 'none', color: 'black'}}>
+            <MenuItem>Edit</MenuItem></Link>
+            <MenuItem onClick={handleClickOpenAlert}>Delete</MenuItem>
+          </Menu> 
+        </div>
+      </div>
+    </div>    
     </div>
     <br></br>
-    <div class="container">
-        <p>{form.description}</p> 
-    </div> <br></br>
+    {
+      form.description == "" ? (<></>) : ( 
+        <div class="container">
+          <p>{form.description}</p> <br></br>
+        </div>
+      )
+    }
+    {/* <div class="container">
+      <p>{form.description}</p> 
+    </div>  */}
+    {/* <br></br> */}
     <div>
+    <div class="container">
     <Grid container>
     <Grid item lg={12} justifyContent="center" display="flex">
       <Card>
@@ -300,6 +315,7 @@ export default function ViewList() {
       </Card>
     </Grid>
     </Grid>
+    </div>
     </div>
 
     {/* delete confirmation alert */}
