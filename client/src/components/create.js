@@ -91,7 +91,7 @@ export default function Create() {
     });
 
     setForm({ name: "", review: "", date: "", rating: "", poster: "" });
-    navigate("/");
+    navigate("/diary");
   }
 
   // This following section will display the form that takes the input from the user.
