@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import { Button, Modal } from 'react-bootstrap';
 
 // We use Route in order to define the different routes of our application
-import { Route, Routes, BrowserRouter, Switch} from "react-router-dom";
+import { Route, Routes, Navigate} from "react-router-dom";
 
 // We import all the components we need in our app
 import Navbar from "./components/navbar";
@@ -21,32 +20,22 @@ import CreateList from "./components/createList";
 import ViewList from "./components/viewList";
 
 import Login from "./components/login";
-import useToken from './components/useToken';
-
-function setToken(userToken) {
-  sessionStorage.setItem('token', JSON.stringify(userToken));
-}
-
-function getToken() {
-  const tokenString = sessionStorage.getItem('token');
-  const userToken = JSON.parse(tokenString);
-  return userToken?.token
-}
+import Register from "./components/register";
+import Reset from "./components/reset";
+import Dashboard from "./components/dashboard";
 
 const App = () => {
-  const { token, setToken } = useToken();
-
-  if(!token) {
-    return <Login setToken={setToken} />
-  }
-  
   return (
     <div>
       <Navbar />
       <div style={{ margin: 20 }}>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route exact path="/" element={<Diary />} />
+        <Route exact path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/reset" element={<Reset />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+
+        <Route path="/diary" element={<Diary />} />
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/create" element={<Create />} />
         <Route path="/review/:id" element={<Review />} />
