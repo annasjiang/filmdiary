@@ -35,6 +35,7 @@ const MovieCard = props => {
 
       // update the hidden name thing and poster for the form
       document.getElementById('name-hidden').value = title;
+      document.getElementById('year-hidden').value = year;
       document.getElementById('poster').src = poster;
 
       // trigger the onclick function so the title stays

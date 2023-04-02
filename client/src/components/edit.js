@@ -14,6 +14,7 @@ import Search from "./search/search";
 export default function Edit() {
   // rating and date
   const [name, setName] = React.useState();
+  const [year, setYear] = React.useState();
   const [rating, setRating] = React.useState(null);
   const [value1, setValue1] = React.useState(null);
   const [posterPath, setPosterPath] = React.useState(null);
@@ -30,6 +31,7 @@ export default function Edit() {
   // get review data from form
   const [form, setForm] = useState({
     name: "",
+    year: "",
     review: "",
     date: "",
     rating: "",
@@ -66,6 +68,7 @@ export default function Edit() {
       setValue1(record.date);
       setRating(record.rating);
       setPosterPath(record.poster);
+      setYear(record.year);
     }
 
     fetchData();
@@ -87,6 +90,7 @@ export default function Edit() {
 
     const editedPerson = {
       name: nameRef.current.value,
+      year: document.getElementById('year-hidden').value,
       review: form.review,
       date: dt,
       rating: ratingRef.current.value,
@@ -137,6 +141,14 @@ export default function Edit() {
                     // onChange={(e) => updateForm({ name: e.target.value })}
                     hidden
                   />
+                   <input
+                type="text"
+                className="form-control"
+                id="year-hidden"
+                value={year}
+                // ref={nameRef}
+                hidden
+              />
                   <div>
                     <Search/>
                   </div>

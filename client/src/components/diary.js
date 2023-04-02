@@ -1,5 +1,6 @@
 import Rating from '@mui/material/Rating';
 import blankposter from './poster.jpg';
+import defaultposter from './search/defaultposter.jpeg';
 import React, { useEffect, useState } from "react";
 
 export default function Diary() {
@@ -53,10 +54,18 @@ export default function Diary() {
     <a href={`/review/${props.record._id}`} style={{ textDecoration: 'none', color: 'black'}}>
     <tr> 
       {/* use thumbnails */}
-      {/* <td class="col-md-2"><img src={`http://image.tmdb.org/t/p/w185${props.record.poster.substring(34, 250)}`} class="img-fluid"/></td> */}
-      <td class="col-md-2"><img src={props.record.poster} class="img-fluid"/></td>
+      <td class="col-md-2">
+        {
+          props.record.poster == "http://localhost:3000/static/media/defaultposter.71253f31.jpeg" ? 
+          (<img src={defaultposter} class="img-fluid"/>) : 
+          (<img src={`http://image.tmdb.org/t/p/w185${props.record.poster.substring(34, 250)}`} class="img-fluid"/>)
+        }
+      </td>
+      {/* <td class="col-md-2"><img src={props.record.poster} class="img-fluid"/></td> */}
       <td>
-        <b>{props.record.name}</b> <br></br>
+        <b style={{display: "inline", marginRight: 5}}>{props.record.name}</b>
+        <p className='text-muted' style={{fontSize: 14, display: "inline"}}>({props.record.year})</p> 
+        <br></br>
         <p class="text-muted">watched on {props.record.date}</p>
         <Rating
             name="simple-controlled"

@@ -43,6 +43,9 @@ listRoutes.route("/list/add").post(function (req, response) {
     name: req.body.name,
     description: req.body.description,
     list: req.body.list,
+    thumbnail1: req.body.thumbnail1,
+    thumbnail2: req.body.thumbnail2,
+    thumbnail3: req.body.thumbnail3,
   };
   db_connect.collection("lists").insertOne(myobj, function (err, res) {
     if (err) throw err;
@@ -59,6 +62,9 @@ listRoutes.route("/updatelist/:id").post(function (req, response) {
       name: req.body.name,
       description: req.body.description,
       list: req.body.list,
+      thumbnail1: req.body.thumbnail1,
+      thumbnail2: req.body.thumbnail2,
+      thumbnail3: req.body.thumbnail3,
     },
   };
   db_connect

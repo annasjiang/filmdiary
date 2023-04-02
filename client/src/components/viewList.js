@@ -50,7 +50,7 @@ export default function ViewList() {
     const [rows, setRows] = useState([
       {
         id: 1,
-        item: {title: "", poster: ""}
+        item: {title: "", year:"", poster: ""}
       }
     ]);
   
@@ -58,7 +58,7 @@ export default function ViewList() {
       return {
           //id: rows.length + 1,
         id: 1,
-        item: {title: "", poster: ""}
+        item: {title: "", year:"", poster: ""}
       }
     }
   
@@ -135,6 +135,7 @@ export default function ViewList() {
                 </TableCell>
                 <TableCell component="th" scope="row" id="name" className="col-sm-7">
                   <TextField 
+                    sx={{ fontWeight: 500 }}
                     id='addFilmToList'
                     // placeholder={"Add Item"} 
                     // onClick={(e) => handleChange(e, row.id)} 
@@ -142,8 +143,9 @@ export default function ViewList() {
                     fullWidth
                     // autoComplete="off"
                     variant="standard"
-                    InputProps={{ disableUnderline: true, readOnly: true }}
+                    InputProps={{ disableUnderline: true, readOnly: true, style: {fontWeight: 500}}}
                   />
+                  <p id="addYearToList" className="text-muted">({row.item["year"]})</p>
                 </TableCell>
               </TableRow>       
             ))}
@@ -282,7 +284,7 @@ export default function ViewList() {
     <br></br>
     <div class="container">
         <p>{form.description}</p> 
-    </div> 
+    </div> <br></br>
     <div>
     <Grid container>
     <Grid item lg={12} justifyContent="center" display="flex">

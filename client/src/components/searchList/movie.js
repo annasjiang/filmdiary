@@ -62,37 +62,8 @@ const MovieCard = props => {
       document.getElementById('searchbar').click();
       document.getElementById('searchbar').dispatchEvent(new Event('click'));
 
-      // add film to the list
-      
-      // var table = document.getElementById("buildinglist");
-      // insRow()
-      // var table = document.getElementById("buildinglist");
-
-      // // Create an empty <tr> element and add it to the 1st position of the table:
-      // var row = table.insertRow(0);
-
-      // // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-      // var cell1 = row.insertCell(0);
-      // var cell2 = row.insertCell(1);
-      // var cell3 = row.insertCell(2);
-
-      // // Add some text to the new cells:
-      // cell1.innerHTML = '<img src="' + posterthumb + '"/>';
-      // cell1.className = "col-sm-2";
-      // document.getElementById("buildinglist").getElementsByTagName("img")[0].style.height="150px";
-
-      // cell2.innerHTML = '<h5>' + title + '</h5> <p className="text-muted">(' + year + ')</p>';
-      // cell2.className = "align-middle";
-
-      // cell3.innerHTML = '<input type="image" id="delete" src="https://icons.veryicon.com/png/o/miscellaneous/management-console-icon-update-0318/material-delete.png" onClick="document.getElementById(\'buildinglist\').deleteRow(this.parentNode.parentNode.rowIndex)" />';
-      // document.getElementById("delete").style.height="20px";
-      // document.getElementById("delete").style.float="right";
-      // document.getElementById("delete").style.margin="15px";
-      // document.getElementById("delete").style.opacity="60%";
-      // // cell3.dangerouslySetInnerHTML = '<IconButton aria-label="delete" onClick="document.getElementById(\'buildinglist\').deleteRow(this.parentNode.parentNode.rowIndex)"><DeleteIcon/></IconButton>';
-      // cell3.className = "align-middle";
-
       document.getElementById('addFilmToList').value = title;
+      document.getElementById('addYearToList').value = year;
       document.getElementById('addPosterToList').src = posterthumb;
       document.getElementById('addPosterToList').style.height = "100px";
       document.getElementById('addFilmToList').click();

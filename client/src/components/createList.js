@@ -21,20 +21,20 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
 
+
 export default function CreateList() {
   // table stuff
   const [rows, setRows] = useState([
     {
       id: 1,
-      item: {title: "", poster: ""}
+      item: {title: "", year:"", poster: ""}
     }
   ]);
 
   const generateRow = () => {
     return {
-        //id: rows.length + 1,
       id: 1,
-      item: {title: "", poster: ""}
+      item: {title: "", year:"", poster: ""}
     }
   }
 
@@ -56,17 +56,18 @@ export default function CreateList() {
 
   const handleChange = (e, id) => {
     let value = e.target.value;
-    console.log("len=" + rows.length + " id="+id);
+    // console.log("len=" + rows.length + " id="+id);
     // if (id === rows.length) {
     if (id === 1) {
       if (value !== "") {
 //        setRows((prevRows) => [...prevRows, generateRow()]);
         for (let i = 0; i < rows.length; i++) {
-            console.log(rows[i].id);
+            // console.log(rows[i].id);
             rows[i].id=i+2;
         }
        setRows((prevRows) => [generateRow(), ...prevRows]);
        rows[0].item["title"]=value;
+       rows[0].item["year"]=document.getElementById("addYearToList").value;
        rows[0].item["poster"]=document.getElementById("addPosterToList").src;
       }
     } else if (id + 1 === rows.length) {
@@ -74,7 +75,7 @@ export default function CreateList() {
         handleDeleteRow(e, id + 1);
       }
     }
-    console.log("new len=" + rows.length );
+    // console.log("new len=" + rows.length );
     //comment out
     // setRows((prevRows) => {
     //     return prevRows.map( (row, index) => index ===  id ? row : { item: value, ...row}, );
@@ -123,6 +124,7 @@ export default function CreateList() {
                 variant="standard"
                 InputProps={{ disableUnderline: true, readOnly: true }}
               />
+              <p id="addYearToList" className="text-muted">({row.item["year"]})</p>
             </TableCell>
             <TableCell component="th" scope="row" className="col-sm-1">
               {
@@ -152,8 +154,9 @@ export default function CreateList() {
                   fullWidth
                   autoComplete="off"
                   variant="standard"
-                  InputProps={{ disableUnderline: true, readOnly: true }}
+                  InputProps={{ disableUnderline: true, readOnly: true, style: {fontWeight: 500}}}
                 />
+                <p id="addYearToList" className="text-muted">({row.item["year"]})</p>
               </TableCell>
               <TableCell component="th" scope="row" className="col-sm-1">
                 {
@@ -176,12 +179,14 @@ export default function CreateList() {
     setTableData(generateTable());
   }, [rows])
 
-
   // form
   const [form, setForm] = useState({
     name: "",
     description: "",
     list: [],
+    thumbnail1: "",
+    thumbnail2: "",
+    thumbnail3: "",
   });
   const navigate = useNavigate();
 
@@ -209,6 +214,17 @@ export default function CreateList() {
       items.push(arr[i].item);
     }
 
+    // set thumbnail posters
+    // if (items.length > 1) {
+    //   setThumb1(arr[0].item.poster);
+    // }
+    // if (items.length > 2) {
+    //   setThumb2(arr[1].item.poster);
+    // }
+    // if (items.length > 3) {
+    //   setThumb3(arr[2].item.poster);
+    // }
+
     // set default list name
     const n = isNaN(form.name) ? form.name : "Untitled List";
 
@@ -216,6 +232,19 @@ export default function CreateList() {
     const newList = { ...form };
     newList.name = n;
     newList.list = JSON.stringify(items);
+    if (arr.length > 0) {
+      newList.thumbnail1 = arr[0].item.poster;
+    }
+    if (arr.length > 1) {
+      newList.thumbnail2 = arr[1].item.poster;
+    }
+    if (arr.length > 2) {
+      newList.thumbnail3 = arr[2].item.poster;
+    }
+    
+    // newList.thumbnail1 = thumb1;
+    // newList.thumbnail2 = thumb2;
+    // newList.thumbnail3 = thumb3;
     
     await fetch("http://localhost:4000/list/add", {
       method: "POST",
@@ -229,7 +258,7 @@ export default function CreateList() {
       return;
     });
 
-    setForm({ name: "", description: "", list: "" });
+    setForm({ name: "", description: "", list: "", thumbnail1: "", thumbnail2: "", thumbnail3: "" });
     navigate("/lists");
   }
 
@@ -266,10 +295,9 @@ export default function CreateList() {
         />    
       </div> <br></br>
       <div class="container"><TextField fullWidth id="outlined-basic" label="ADD FILMS..." variant="outlined" hidden/></div> 
-      <div class="container"><Search/></div>
+      <div class="container"><Search/></div> <br></br>
       <div class="container">
       <Grid container>
-
         <Grid item lg={12} justifyContent="center" display="flex">
           <Card>
             <TableContainer>

@@ -41,6 +41,7 @@ recordRoutes.route("/record/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
     name: req.body.name,
+    year: req.body.year,
     review: req.body.review,
     date: req.body.date,
     rating: req.body.rating,
@@ -59,6 +60,7 @@ recordRoutes.route("/update/:id").post(function (req, response) {
   let newvalues = {
     $set: {
       name: req.body.name,
+      year: req.body.year,
       review: req.body.review,
       date: req.body.date,
       rating: req.body.rating,

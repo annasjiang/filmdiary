@@ -29,6 +29,7 @@ import Search from "./search/search";
 export default function Create() {
   // rating and date
   const [name, setName] = React.useState();
+  const [year, setYear] = React.useState();
   const [rating, setRating] = React.useState();
   const [value1, setValue1] = React.useState(dayjs(new Date()));
 
@@ -43,6 +44,7 @@ export default function Create() {
   // form
   const [form, setForm] = useState({
     name: "",
+    year: "",
     review: "",
     date: "",
     rating: "",
@@ -73,6 +75,7 @@ export default function Create() {
     // newPerson.date = format(dt, 'MM/dd/yyyy');
     newPerson.date= dt;
     newPerson.rating = ratingRef.current.value;
+    newPerson.year = document.getElementById('year-hidden').value;
     newPerson.poster = document.getElementById('poster').src;
 
     await fetch("http://localhost:4000/record/add", {
@@ -115,10 +118,18 @@ export default function Create() {
                 value={name}
                 ref={nameRef}
                 onChange={(e) => {
-                  updateForm({ name: e.target.value, poster: document.getElementById('poster').src }); 
+                  updateForm({ name: e.target.value, poster: document.getElementById('poster').src, year: document.getElementById('year-hidden').value }); 
                   // document.getElementById('searchresults').style.visibility = "hidden";
                 }}
                 required
+                hidden
+              />
+              <input
+                type="text"
+                className="form-control"
+                id="year-hidden"
+                value={year}
+                // ref={nameRef}
                 hidden
               />
               <div>

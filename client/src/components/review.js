@@ -57,6 +57,7 @@ export default function View() {
   // review info
   const [form, setForm] = useState({
     name: "",
+    year: "",
     review: "",
     date: "",
     rating: "",
@@ -101,8 +102,9 @@ export default function View() {
   return (
     <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
     <div class="container">
-    <h3>{form.name}
-      <div class="float-right">
+      <h3 style={{display: "inline", marginRight: 10}}>{form.name}</h3>
+      <p class="text-muted" style={{fontSize: 22, display: "inline"}}>({form.year})</p>
+      <span><div class="float-right">
         <ThemeProvider theme={theme}>
           {/* edit/delete button */}
           <Button color="neutral"
@@ -125,8 +127,7 @@ export default function View() {
           <MenuItem>Edit</MenuItem></Link>
           <MenuItem onClick={handleClickOpenAlert}>Delete</MenuItem>
         </Menu> 
-      </div>
-    </h3>
+      </div></span>
     </div>
     <br></br>
 

@@ -35,7 +35,7 @@ export default function EditList() {
   const [rows, setRows] = useState([
     {
       id: 1,
-      item: {title: "", poster: ""}
+      item: {title: "", year: "", poster: ""}
     }
   ]);
 
@@ -43,7 +43,7 @@ export default function EditList() {
     return {
         //id: rows.length + 1,
       id: 1,
-      item: {title: "", poster: ""}
+      item: {title: "", year: "", poster: ""}
     }
   }
 
@@ -76,6 +76,7 @@ export default function EditList() {
         }
        setRows((prevRows) => [generateRow(), ...prevRows]);
        rows[0].item["title"]=value;
+       rows[0].item["year"]=document.getElementById("addYearToList").value;
        rows[0].item["poster"]=document.getElementById("addPosterToList").src;
       }
     } else if (id + 1 === rows.length) {
@@ -130,8 +131,8 @@ export default function EditList() {
                 fullWidth
                 autoComplete="off"
                 variant="standard"
-                InputProps={{ disableUnderline: true, readOnly: true }}
-              />
+                InputProps={{ disableUnderline: true, readOnly: true,  }}
+              /><p id="addYearToList" className="text-muted">({row.item["year"]})</p>
             </TableCell>
             <TableCell component="th" scope="row" className="col-sm-1">
               {
@@ -161,8 +162,8 @@ export default function EditList() {
                   fullWidth
                   autoComplete="off"
                   variant="standard"
-                  InputProps={{ disableUnderline: true, readOnly: true }}
-                />
+                  InputProps={{ disableUnderline: true, readOnly: true, style: {fontWeight: 500} }}
+                /><p id="addYearToList" className="text-muted">({row.item["year"]})</p>
               </TableCell>
               <TableCell component="th" scope="row" className="col-sm-1">
                 {
@@ -265,8 +266,20 @@ async function onSubmit(e) {
     name: form.name,
     description: form.description,
     list: [],
+    thumbnail1: "",
+    thumbnail2: "",
+    thumbnail3: "",
   };
   editedList.list = JSON.stringify(items);
+  if (arr.length > 0) {
+    editedList.thumbnail1 = arr[0].item.poster;
+  }
+  if (arr.length > 1) {
+    editedList.thumbnail2 = arr[1].item.poster;
+  }
+  if (arr.length > 2) {
+    editedList.thumbnail3 = arr[2].item.poster;
+  }
 
   // This will send a post request to update the data in the database.
   await fetch(`http://localhost:4000/updatelist/${params.id}`, {
@@ -314,7 +327,7 @@ return (
       />    
     </div> <br></br>
     {/* <div class="container"><TextField fullWidth id="outlined-basic" label="ADD FILMS..." variant="outlined" /></div>  */}
-    <div class="container"><Search/></div>
+    <div class="container"><Search/></div> <br></br>
     <div class="container">
       <Grid container>
 

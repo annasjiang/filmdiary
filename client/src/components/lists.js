@@ -1,5 +1,6 @@
-import poster from './poster.jpg';
 import React, { useEffect, useState } from "react";
+import blankposter from './poster.jpg';
+import './lists.css';
 
 export default function Lists() {
   const [lists, setLists] = useState([]);
@@ -16,6 +17,17 @@ export default function Lists() {
       }
       const lists = await response.json();
       setLists(lists);
+
+      // let sizes_arr = JSON.parse(lists.list); 
+      // if (sizes_arr.length > 1) {
+      //   setPoster1(sizes_arr[0]["poster"]);
+      // }
+      // if (sizes_arr.length > 2) {
+      //   setPoster2(sizes_arr[1]["poster"]);
+      // }
+      // if (sizes_arr.length > 3) {
+      //   setPoster3(sizes_arr[2]["poster"]);
+      // }
     }
     getLists();
     return; 
@@ -47,9 +59,32 @@ export default function Lists() {
   // get reviews
   const List = (props) => (
     <a href={`/list/${props.list._id}`} style={{ textDecoration: 'none', color: 'black'}}>
-    <tr> 
-      <td class="col-md-2"><img src={poster} class="img-fluid"/></td>
-      <td>
+    <tr id="parent"> 
+      <td class="listpics avatars" style={{width:205}}>
+        <span class="avatar">
+        {
+          props.list.thumbnail3 == "" ? 
+          (<img src={blankposter} class="img-fluid"/>) : 
+          (<img src={props.list.thumbnail3} class="img-fluid"/>)
+        }
+        </span>
+        <span class="avatar">
+        {
+          props.list.thumbnail2 == "" ? 
+          (<img src={blankposter} class="img-fluid"/>) : 
+          (<img src={props.list.thumbnail2} class="img-fluid"/>)
+        }
+        </span>
+        <span class="avatar">
+        {
+          props.list.thumbnail1 == "" ? 
+          (<img src={blankposter} class="img-fluid"/>) : 
+          (<img src={props.list.thumbnail1} class="img-fluid"/>)
+        }
+        </span>
+      </td>
+
+      <td class="listinfo" style={{width:800}}>
         <b>{props.list.name}</b> <br></br>
         <p class="text-muted">{props.list.description}</p>
       </td>
@@ -59,10 +94,10 @@ export default function Lists() {
 
   // display reviews
   return (
-    <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
+    <div class="table-container" style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
       <h3>My Lists</h3>
-      <table className="table table-hover" style={{ marginTop: 20 }}>
-        <tbody>{listList()}</tbody>
+      <table className="listtable table table-responsive table-hover" style={{ marginTop: 20, }}>
+        <tbody className="fullWidth">{listList()}</tbody>
       </table>
     </div>
   );
