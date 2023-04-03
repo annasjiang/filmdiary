@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
+
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -11,7 +14,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
-import { Card, Grid, Table, TableBody, TableCell, TableContainer, TableRow} from "@mui/material";
+import { Table, TableBody, TableCell, TableRow } from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -99,6 +102,7 @@ export default function ViewList() {
   });
   const params = useParams();
   const navigate = useNavigate();
+  const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
     async function fetchData() {
@@ -154,13 +158,13 @@ export default function ViewList() {
         ="float-right">
           <ThemeProvider theme={theme}>
             {/* edit/delete button */}
-            <Button color="neutral"
+            {user && <Button color="neutral"
               id="basic-button"
               aria-controls={open ? 'basic-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
               onClick={handleClick}
-            >•••</Button>
+            >•••</Button>}
           </ThemeProvider>
           <Menu
             id="basic-menu"

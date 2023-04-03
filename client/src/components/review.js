@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
+
 import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -22,7 +25,6 @@ const theme = createTheme({
     },
   },
 });
-
 
 export default function View() {
   // dropdown menu
@@ -64,6 +66,7 @@ export default function View() {
   });
   const params = useParams();
   const navigate = useNavigate();
+  const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
     async function fetchData() {
@@ -109,13 +112,13 @@ export default function View() {
       <div class="float-right">
         <ThemeProvider theme={theme}>
           {/* edit/delete button */}
-          <Button color="neutral"
+          {user && <Button color="neutral"
             id="basic-button"
             aria-controls={open ? 'basic-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
-          >•••</Button>
+          >•••</Button>}
         </ThemeProvider>
         <Menu
           id="basic-menu"

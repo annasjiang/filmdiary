@@ -28,15 +28,10 @@ function Dashboard() {
   return (
     <div className="dashboard">
        <div className="dashboard__container">
-        Logged in as
+        are you sure you want to log out,
          <div>{name}</div>
-         <div>{user?.email}</div>
          <button className="dashboard__btn" onClick={logout}>
           Logout
-         </button>
-
-         <button className="dashboard__btn" onClick={event =>  window.location.href='/diary'}>
-          view your film diary
          </button>
        </div>
      </div>

@@ -1,19 +1,18 @@
 import React from "react";
+import { NavLink, Link } from "react-router-dom";
 
 // We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
-
-// We import NavLink to utilize the react router.
-import { NavLink } from "react-router-dom";
 
 import logo from "./logo.png";
 
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from "react-router-dom";
-
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
 
 const theme = createTheme({
   palette: {
@@ -36,6 +35,8 @@ export default function Navbar() {
       setAnchorEl(null);
   };
 
+  const [user, loading, error] = useAuthState(auth);
+  
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top nav-fill">
@@ -62,9 +63,10 @@ export default function Navbar() {
           <li className="nav-item">
             <a className="nav-link" href="/lists">lists</a>
           </li>
-          {/* <li className="nav-item">
-            <a className="nav-link" href="/search">search</a>
-          </li> */}
+          <li className="nav-item">
+            {user && <a className="nav-link" href="/dashboard">log out</a>}
+            {!user && <a className="nav-link" href="/login">log in</a>}
+          </li>
         </ul>
         </div>
 
@@ -76,13 +78,13 @@ export default function Navbar() {
               </NavLink> */}
               <ThemeProvider theme={theme}>
                 {/* edit/delete button */}
-                <Button color="success"
+                {user && <Button color="success"
                   id="basic-button"
                   aria-controls={open ? 'basic-menu' : undefined}
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}
                   onClick={handleClick}
-                >+ NEW</Button>
+                >+ NEW</Button>}
               </ThemeProvider>
               <Menu
                 id="basic-menu"

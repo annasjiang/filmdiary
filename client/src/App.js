@@ -30,12 +30,14 @@ const App = () => {
       <Navbar />
       <div style={{ margin: 20 }}>
       <Routes>
-        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/" element={<Diary />} />
+        <Route path="/diary" element={<Diary />} />
+
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="/dashboard" element={<Dashboard />} />
 
-        <Route path="/diary" element={<Diary />} />
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/create" element={<Create />} />
         <Route path="/review/:id" element={<Review />} />
