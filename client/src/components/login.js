@@ -2,7 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, logInWithEmailAndPassword } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import "./login.css";
+
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockPersonIcon from '@mui/icons-material/LockPerson';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -19,36 +28,55 @@ function Login() {
   }, [user, loading]);
 
   return (
-    <div className="login">
-      <div className="login__container">
-        <input
-          type="text"
-          className="login__textBox"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
-        />
-        <input
-          type="password"
-          className="login__textBox"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <button
-          className="login__btn"
-          onClick={() => logInWithEmailAndPassword(email, password)}
-        >
-          Login
-        </button>
-        <div>
-          <Link to="/reset">Forgot Password</Link>
-        </div>
-        <div>
-          Don't have an account? <Link to="/register">Register</Link> now.
-        </div>
-      </div>
-    </div>
+
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 2, mt: 10 }}>
+          <LockPersonIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Admin Log In
+        </Typography>
+        <Box component="form" noValidate sx={{ mt: 1 }}>
+          <TextField
+            required
+            fullWidth
+            margin="normal"
+            id="outlined-required"
+            label="E-mail Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoFocus
+          />
+          <TextField
+            required
+            fullWidth
+            margin="normal"
+            type="password"
+            id="outlined-required"
+            label="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button
+            fullWidth
+            sx={{ mt: 3, mb: 2 }}
+            variant="contained"
+            color="success"
+            onClick={() => logInWithEmailAndPassword(email, password)}>
+            LOG IN
+          </Button>
+        </Box>
+      </Box>
+    </Container>
   );
 }
 

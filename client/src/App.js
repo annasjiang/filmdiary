@@ -20,8 +20,6 @@ import CreateList from "./components/createList";
 import ViewList from "./components/viewList";
 
 import Login from "./components/login";
-import Register from "./components/register";
-import Reset from "./components/reset";
 import Logout from "./components/logout";
 
 const App = () => {
@@ -34,8 +32,6 @@ const App = () => {
         <Route path="/diary" element={<Diary />} />
 
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/reset" element={<Reset />} />
         <Route path="/logout" element={<Logout />} />
 
         <Route path="/edit/:id" element={<Edit />} />
