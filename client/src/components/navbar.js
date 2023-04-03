@@ -36,7 +36,7 @@ export default function Navbar() {
   };
 
   const [user, loading, error] = useAuthState(auth);
-  
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top nav-fill">
@@ -64,7 +64,7 @@ export default function Navbar() {
             <a className="nav-link" href="/lists">lists</a>
           </li>
           <li className="nav-item">
-            {user && <a className="nav-link" href="/dashboard">log out</a>}
+            {user && <a className="nav-link" href="/logout">log out</a>}
             {!user && <a className="nav-link" href="/login">log in</a>}
           </li>
         </ul>

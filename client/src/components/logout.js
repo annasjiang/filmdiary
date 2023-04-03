@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import "./dashboard.css";
+
 import { auth, db, logout } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
+
+import "./logout.css";
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
