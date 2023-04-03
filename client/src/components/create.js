@@ -12,7 +12,11 @@ import dayjs from 'dayjs';
 
 import Search from "./search/search";
 
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
+
 export default function Create() {
+  const [user, loading, error] = useAuthState(auth);
   // rating and date
   const [name, setName] = React.useState();
   const [year, setYear] = React.useState();
@@ -78,6 +82,7 @@ export default function Create() {
 
   // This following section will display the form that takes the input from the user.
   return (
+    user ? (
     <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
       <div class="container">
         <h3>New Review</h3>
@@ -195,5 +200,10 @@ export default function Create() {
         </div>
       </div>
     </div>
+    ) : (
+      <div style={{marginTop: 100, marginLeft: 300, marginRight: 300,}}>
+        <h2 class="text-center">You need to be logged in to create reviews!</h2>
+      </div>
+    )
   );
 }

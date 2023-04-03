@@ -8,9 +8,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { format } from 'date-fns';
 
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
+
 import Search from "./search/search";
 
 export default function Edit() {
+  const [user, loading, error] = useAuthState(auth);
+
   // rating and date
   const [name, setName] = React.useState();
   const [year, setYear] = React.useState();
@@ -62,8 +67,10 @@ export default function Edit() {
       setForm(record);
       setName(record.name);
       // trigger a click so the search bar displays the title
-      document.getElementById('searchbar').click();
-      document.getElementById('searchbar').dispatchEvent(new Event('click'));
+      if (document.getElementById('searchbar') != null) {
+        document.getElementById('searchbar').click();
+        document.getElementById('searchbar').dispatchEvent(new Event('click'));
+      }
       setValue1(record.date);
       setRating(record.rating);
       setPosterPath(record.poster);
@@ -109,7 +116,8 @@ export default function Edit() {
   }
 
   // This following section will display the form that takes input from the user to update the data.
-  return (
+  return ( 
+    user ? (
     <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
       <div class="container">
       <h3>Edit Review</h3></div> <br></br>
@@ -223,5 +231,10 @@ export default function Edit() {
           </form>
         </div>           
     </div>
+    ) : (
+      <div style={{marginTop: 100, marginLeft: 300, marginRight: 300,}}>
+        <h2 class="text-center">You need to be logged in to edit reviews!</h2>
+      </div>
+    )
   );
 }

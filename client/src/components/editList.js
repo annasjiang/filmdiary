@@ -3,10 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Search from "./searchList/search";
 import { Card, Grid, Table, TableBody, TableCell, TableContainer, TableRow, IconButton,} from "@mui/material";
-
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
+
 export default function EditList() {
+  const [user, loading, error] = useAuthState(auth);
   // table stuff
   const [rows, setRows] = useState([
     {
@@ -246,6 +249,7 @@ async function onSubmit(e) {
 
 // This following section will display the form that takes input from the user to update the data.
 return (
+  user ? (
   <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
     <form onSubmit={onSubmit}>
     <div class="container">
@@ -304,5 +308,10 @@ return (
     </div>
     </form>
   </div>  
+  ) : (
+    <div style={{marginTop: 100, marginLeft: 300, marginRight: 300,}}>
+      <h2 class="text-center">You need to be logged in to edit lists!</h2>
+    </div>
+  )
 );
 }

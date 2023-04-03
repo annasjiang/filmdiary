@@ -5,8 +5,11 @@ import { Card, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Icon
 import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
 
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
 
 export default function CreateList() {
+  const [user, loading, error] = useAuthState(auth);
   // table stuff
   const [rows, setRows] = useState([
     {
@@ -208,6 +211,7 @@ export default function CreateList() {
 
   // This following section will display the form that takes the input from the user.
   return (
+    user ? (
     <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
       <form onSubmit={onSubmit}>
       <div className="container">
@@ -264,5 +268,10 @@ export default function CreateList() {
       </div>   
       </form>  
     </div>
+    ) : (
+      <div style={{marginTop: 100, marginLeft: 300, marginRight: 300,}}>
+        <h2 class="text-center">You need to be logged in to create lists!</h2>
+      </div>
+    )
   );
 }
