@@ -78,6 +78,9 @@ export default function Navbar() {
           <li className="nav-item">
             <a className="nav-link" href="/lists">lists</a>
           </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/discover">discover</a>
+          </li>
           {/* <li className="nav-item"> */}
             {/* <a className="nav-link" href="/logout">log out</a> */}
             {/* {user && <a className="nav-link" href="/logout">log out</a>}
@@ -170,6 +173,9 @@ export default function Navbar() {
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/lists">lists</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/discover">discover</a>
           </li>
           {/* <li className="nav-item"> */}
             {/* <a className="nav-link" href="/login">log in</a> */}

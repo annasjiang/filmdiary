@@ -19,6 +19,8 @@ import EditList from "./components/editList";
 import CreateList from "./components/createList";
 import ViewList from "./components/viewList";
 
+import Discover from "./components/discover";
+
 import Login from "./components/login";
 import Logout from "./components/logout";
 
@@ -44,7 +46,7 @@ const App = () => {
         <Route path="/createlist" element={<CreateList />} />
         <Route path="/list/:id" element={<ViewList />} />
 
-        
+        <Route path="/discover" element={<Discover />} />
       </Routes>
       </div>
     </div>

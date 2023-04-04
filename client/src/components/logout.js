@@ -12,7 +12,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -44,6 +44,15 @@ function Dashboard() {
     },
   });
 
+  const themeColor = createTheme({
+    palette: {
+      neutral: {
+        main: '#64748B',
+        contrastText: '#fff',
+      },
+    },
+  });
+
   return (
     <Container component="main" maxWidth="xs">
     <CssBaseline />
@@ -58,31 +67,35 @@ function Dashboard() {
       <Avatar sx={{ m: 2, mt: 10 }}>
         <LogoutIcon />
       </Avatar>
-      <Typography> are you sure you want to log out, </Typography>
-      <Typography component="h1"> {name} </Typography>
+      <Typography> Are you sure you want to log out, </Typography>
+      <Typography component="h1"> {name}? </Typography>
       <Box 
         fullWidth
         component="form"
         spacing={2}
         justify='space-between'
-        noValidate sx={{ mt: 1 }}
+        noValidate 
+        sx={{ mt: 1 }}
         >
+          <ThemeProvider theme={themeColor}>
+          <Link to="/" style={{ textDecoration: 'none', color: 'white'}}>
           <Button
-            fullWidth
+            // fullWidth
             sx={{ mt: 3 }}
+            variant="outlined"
+            color="neutral"
+            >
+            CANCEL
+          </Button></Link>
+          </ThemeProvider>
+          <Button
+            // fullWidth
+            sx={{ mt: 3, marginLeft: 2 }}
             variant="contained"
-            color="inherit"
+            color="error"
             onClick={logout}>
             LOG OUT
           </Button>
-          <Button
-            fullWidth
-            sx={{ mt: 3 }}
-            variant="contained"
-            color="success"
-            component={Link} to='/'>
-            CANCEL
-          </Button> 
       </Box>
     </Box>
   </Container>
