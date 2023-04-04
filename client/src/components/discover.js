@@ -53,21 +53,21 @@ export default function Discover() {
         {/* handle thumbnails */}
         <span class="avatar">
         {
-          props.list.thumbnail3 == "" ? 
+          props.list.thumbnail3 === "" ? 
           (<img src={blankposter} class="img-fluid"/>) : 
           (<img src={props.list.thumbnail3} class="img-fluid"/>)
         }
         </span>
         <span class="avatar">
         {
-          props.list.thumbnail2 == "" ? 
+          props.list.thumbnail2 === "" ? 
           (<img src={blankposter} class="img-fluid"/>) : 
           (<img src={props.list.thumbnail2} class="img-fluid"/>)
         }
         </span>
         <span class="avatar">
         {
-          props.list.thumbnail1 == "" ? 
+          props.list.thumbnail1 === "" ? 
           (<img src={blankposter} class="img-fluid"/>) : 
           (<img src={props.list.thumbnail1} class="img-fluid"/>)
         }
