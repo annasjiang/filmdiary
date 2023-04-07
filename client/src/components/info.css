@@ -1,0 +1,5 @@
+#castList {
+    -webkit-line-clamp: 5;
+    max-height: 150px;
+    overflow: scroll;
+}

@@ -64,6 +64,7 @@ const MovieCard = props => {
 
       document.getElementById('addFilmToList').value = title;
       document.getElementById('addYearToList').value = year;
+      document.getElementById('addFilmIdToList').value = id;
       document.getElementById('addPosterToList').src = posterthumb;
       document.getElementById('addPosterToList').style.height = "100px";
       document.getElementById('addFilmToList').click();

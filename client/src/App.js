@@ -20,6 +20,7 @@ import CreateList from "./components/createList";
 import ViewList from "./components/viewList";
 
 import Discover from "./components/discover";
+import Info from "./components/info";
 
 import Login from "./components/login";
 import Logout from "./components/logout";
@@ -47,6 +48,8 @@ const App = () => {
         <Route path="/list/:id" element={<ViewList />} />
 
         <Route path="/discover" element={<Discover />} />
+
+        <Route path="/info/:id" element={<Info />} />
       </Routes>
       </div>
     </div>

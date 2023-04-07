@@ -14,14 +14,14 @@ export default function CreateList() {
   const [rows, setRows] = useState([
     {
       id: 1,
-      item: {title: "", year:"", poster: ""}
+      item: {title: "", year:"", poster: "", filmid: ""}
     }
   ]);
 
   const generateRow = () => {
     return {
       id: 1,
-      item: {title: "", year:"", poster: ""}
+      item: {title: "", year:"", poster: "", filmid: ""}
     }
   }
 
@@ -52,6 +52,7 @@ export default function CreateList() {
        rows[0].item["title"]=value;
        rows[0].item["year"]=document.getElementById("addYearToList").value;
        rows[0].item["poster"]=document.getElementById("addPosterToList").src;
+       rows[0].item["filmid"]=document.getElementById("addFilmIdToList").value;
       }
     } else if (id + 1 === rows.length) {
       if (value === "") {
@@ -87,6 +88,7 @@ export default function CreateList() {
                 InputProps={{ disableUnderline: true, readOnly: true }}
               />
               <p id="addYearToList" className="text-muted">({row.item["year"]})</p>
+              <p id="addFilmIdToList" hidden>({row.item["filmid"]})</p>
             </TableCell>
             <TableCell component="th" scope="row" className="col-sm-1">
               {
@@ -119,6 +121,7 @@ export default function CreateList() {
                   InputProps={{ disableUnderline: true, readOnly: true, style: {fontWeight: 500}}}
                 />
                 <p id="addYearToList" className="text-muted">({row.item["year"]})</p>
+                <p id="addFilmIdToList" hidden>({row.item["filmid"]})</p>
               </TableCell>
               <TableCell component="th" scope="row" className="col-sm-1">
                 {

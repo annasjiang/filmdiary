@@ -31,7 +31,7 @@ export default function ViewList() {
   const [rows, setRows] = useState([
     {
       id: 1,
-      item: {title: "", year:"", poster: ""}
+      item: {title: "", year:"", poster: "", filmid: ""}
     }
   ]);
 
@@ -40,6 +40,7 @@ export default function ViewList() {
       <Table>
         <TableBody>
           {rows.map((row) => (
+            <a href={`/info/${row.item["filmid"]}`} style={{ textDecoration: 'none', color: 'black'}}>
             <TableRow
               key={row.id}
               sx={{ 
@@ -50,7 +51,7 @@ export default function ViewList() {
               <TableCell component="th" scope="row" id="poster" className="col-sm-1">
                 <img id='addPosterToList' src={row.item["poster"]} style={{height :100}}></img>
               </TableCell>
-              <TableCell component="th" scope="row" id="name" className="col-sm-7">
+              <TableCell component="th" scope="row" id="name" className="col-sm-10">
                 <TextField 
                   id='addFilmToList' 
                   value={row.item["title"]}
@@ -60,7 +61,8 @@ export default function ViewList() {
                 />
                 <p id="addYearToList" className="text-muted">({row.item["year"]})</p>
               </TableCell>
-            </TableRow>       
+            </TableRow> 
+            </a>    
           ))}
         </TableBody>
       </Table>

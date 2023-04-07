@@ -53,6 +53,7 @@ export default function View() {
   const [rating, setRating] = React.useState(null);
   const [value1, setValue1] = React.useState(null);
   const [posterPath, setPosterPath] = React.useState(null);
+  const [filmid, setFilmid] = React.useState();
 
   // review info
   const [form, setForm] = useState({
@@ -62,6 +63,7 @@ export default function View() {
     date: "",
     rating: "",
     poster: "",
+    filmdid: "",
     records: [],
   });
   const params = useParams();
@@ -87,6 +89,7 @@ export default function View() {
       setValue1(record.date);
       setRating(record.rating);
       setPosterPath(record.poster);
+      setFilmid(record.filmid);
     }
     fetchData();
     return;
@@ -105,7 +108,8 @@ export default function View() {
     <div class="container">
     <div class="row">
       <div class="col nopadding">
-        <h3 style={{display: "inline", marginRight: 10}}>{form.name}</h3>
+        <a href={`/info/${form.filmid}`} style={{ textDecoration: 'none', color: 'black'}}>
+          <h3 style={{display: "inline", marginRight: 10}}>{form.name}</h3></a>
         <p class="text-muted" style={{fontSize: 22, display: "inline"}}>({form.year})</p>
       </div>
       <div class="col col-sm-1">

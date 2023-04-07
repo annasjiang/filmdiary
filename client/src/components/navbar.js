@@ -101,7 +101,7 @@ export default function Navbar() {
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}
                   onClick={handleClick}
-                  small
+                  // small
                 >+ NEW</Button>
               </ThemeProvider>
               <Menu

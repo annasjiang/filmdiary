@@ -20,6 +20,7 @@ export default function Create() {
   // rating and date
   const [name, setName] = React.useState();
   const [year, setYear] = React.useState();
+  const [filmid, setfilmid] = React.useState();
   const [rating, setRating] = React.useState();
   const [value1, setValue1] = React.useState(dayjs(new Date()));
 
@@ -39,6 +40,7 @@ export default function Create() {
     date: "",
     rating: "",
     poster: "",
+    filmid: "",
   });
   
   const navigate = useNavigate();
@@ -63,6 +65,7 @@ export default function Create() {
     newPerson.rating = ratingRef.current.value;
     newPerson.year = document.getElementById('year-hidden').value;
     newPerson.poster = document.getElementById('poster').src;
+    newPerson.filmid = document.getElementById('filmid-hidden').value;
 
     await fetch("http://localhost:4000/record/add", {
       method: "POST",
@@ -76,7 +79,7 @@ export default function Create() {
       return;
     });
 
-    setForm({ name: "", review: "", date: "", rating: "", poster: "" });
+    setForm({ name: "", review: "", date: "", rating: "", poster: "", filmid: "" });
     navigate("/diary");
   }
 
@@ -119,6 +122,13 @@ export default function Create() {
                 className="form-control"
                 id="year-hidden"
                 value={year}
+                hidden
+              />
+              <input
+                type="text"
+                className="form-control"
+                id="filmid-hidden"
+                value={filmid}
                 hidden
               />
               <div><Search /></div>

@@ -47,6 +47,7 @@ recordRoutes.route("/record/add").post(function (req, response) {
     date: req.body.date,
     rating: req.body.rating,
     poster: req.body.poster,
+    filmid: req.body.filmid,
   };
   db_connect.collection("records").insertOne(myobj, function (err, res) {
     if (err) throw err;
@@ -66,6 +67,7 @@ recordRoutes.route("/update/:id").post(function (req, response) {
       date: req.body.date,
       rating: req.body.rating,
       poster: req.body.poster,
+      filmid: req.body.filmid,
     },
   };
   db_connect

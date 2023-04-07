@@ -11,22 +11,7 @@ const MovieCard = props => {
   const { title, poster_path, id, release_date} = props.item;
   const posterthumb = poster_path != null ? `http://image.tmdb.org/t/p/w185${poster_path}` : defaultposter;
   const poster = poster_path != null ? `http://image.tmdb.org/t/p/original${poster_path}` : defaultposter;
-
   const year = release_date.substring(0, 4);
-
-  var selectedTitle = React.useRef();
-
-  function triggerInput(enteredName, enteredValue) {
-    const input = document.getElementById(enteredName); 
-    const lastValue = input.value;
-    input.value = enteredValue;
-    const event = new Event("input", { bubbles: true });
-    const tracker = input._valueTracker;
-    if (tracker) {
-      tracker.setValue(lastValue);
-    }
-    input.dispatchEvent(event);
-  }
 
   return (
     <tr onClick={() => {
@@ -36,6 +21,7 @@ const MovieCard = props => {
       // update the hidden name thing and poster for the form
       document.getElementById('name-hidden').value = title;
       document.getElementById('year-hidden').value = year;
+      document.getElementById('filmid-hidden').value = id;
       document.getElementById('poster').src = poster;
 
       // trigger the onclick function so the title stays

@@ -19,6 +19,7 @@ export default function Edit() {
   // rating and date
   const [name, setName] = React.useState();
   const [year, setYear] = React.useState();
+  const [filmid, setFilmid] = React.useState();
   const [rating, setRating] = React.useState(null);
   const [value1, setValue1] = React.useState(null);
   const [posterPath, setPosterPath] = React.useState(null);
@@ -101,6 +102,7 @@ export default function Edit() {
       date: dt,
       rating: ratingRef.current.value,
       poster: document.getElementById('poster').src,
+      filmid: document.getElementById('filmid-hidden').value,
     };
 
     // This will send a post request to update the data in the database.
@@ -151,6 +153,13 @@ export default function Edit() {
                     className="form-control"
                     id="year-hidden"
                     value={year}
+                    hidden
+                  />
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="filmid-hidden"
+                    value={filmid}
                     hidden
                   />
                   <div>
