@@ -37,7 +37,7 @@ export default function ViewList() {
 
   const generateTable = () => {
     return (
-      <Table>
+      <Table className="table-hover">
         <TableBody>
           {rows.map((row) => (
             <a href={`/info/${row.item["filmid"]}`} style={{ textDecoration: 'none', color: 'black'}}>

@@ -1,5 +1,14 @@
 #castList {
-    -webkit-line-clamp: 5;
-    max-height: 150px;
+    max-height: 160px;
+    overflow: scroll;
+}
+
+#crewList {
+    max-height: 160px;
+    overflow: scroll;
+}
+
+#keywordsList {
+    max-height: 160px;
     overflow: scroll;
 }

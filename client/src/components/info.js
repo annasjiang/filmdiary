@@ -8,6 +8,13 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import { styled } from "@mui/system";
+
 const themeCastButtons = createTheme({      
   typography: {
     button: {
@@ -16,7 +23,63 @@ const themeCastButtons = createTheme({
   }
 });
 
+const StyledTabPanel = styled("div")({
+    "& .MuiBox-root": {
+      paddingTop: 10,
+      paddingBottom: 0,
+      paddingLeft: 0,
+      paddingRight: 0
+    }
+  });
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+    //   <div
+    //     role="tabpanel"
+    //     hidden={value !== index}
+    //     id={`simple-tabpanel-${index}`}
+    //     aria-labelledby={`simple-tab-${index}`}
+    //     {...other}
+    //   >
+    <StyledTabPanel
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+        {value === index && (
+          <Box sx={{ p: 3 }}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+        </StyledTabPanel>
+    );
+  }
+  
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+  };
+  
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
+  
+
 export default function Info() {
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+
     const params = useParams();
     const navigate = useNavigate();
 
@@ -32,47 +95,73 @@ export default function Info() {
         actor: "",
         character: "",
     }]);
+    const [crew, setCrew] = useState([{
+        crew_id: "",
+        name: "",
+        job: "",
+    }]);
+    const [keywords, setKeywords] = useState([{
+        keyword_id: "",
+        keyword: "",
+    }]);
 
     useEffect(() => {
         async function fetchData() {
-        const filmid = params.id.toString();
-        console.log(filmid);
-        const info = await axios(
-            `https://api.themoviedb.org/3/movie/${filmid}?api_key=dbc0a6d62448554c27b6167ef7dabb1b&language=en-US`
-        );
-        // console.log(info.data);
-        setTitle(info.data.title);
-        setYear(info.data.release_date.substring(0, 4));
-        setTagline(info.data.tagline.toUpperCase());
-        setOverview(info.data.overview);
-        const posterPath = info.data.poster_path != null ? `http://image.tmdb.org/t/p/original${info.data.poster_path}` : defaultposter
-        setPoster(posterPath);
+            const filmid = params.id.toString();
+            console.log(filmid);
+            const info = await axios(
+                `https://api.themoviedb.org/3/movie/${filmid}?api_key=dbc0a6d62448554c27b6167ef7dabb1b&language=en-US`
+            );
+            // console.log(info.data);
+            setTitle(info.data.title);
+            setYear(info.data.release_date.substring(0, 4));
+            setTagline(info.data.tagline.toUpperCase());
+            setOverview(info.data.overview);
+            const posterPath = info.data.poster_path != null ? `http://image.tmdb.org/t/p/original${info.data.poster_path}` : defaultposter
+            setPoster(posterPath);
 
-        const credits = await axios(
-            `https://api.themoviedb.org/3/movie/${filmid}/credits?api_key=dbc0a6d62448554c27b6167ef7dabb1b&language=en-US`
-        );
+            const credits = await axios(
+                `https://api.themoviedb.org/3/movie/${filmid}/credits?api_key=dbc0a6d62448554c27b6167ef7dabb1b&language=en-US`
+            );
 
-        const castArr = [];
-        for (let i = 0; i < credits.data.cast.length; i++) {
-            castArr.push({cast_id: credits.data.cast[i].cast_id, actor: credits.data.cast[i].name, character: credits.data.cast[i].character})
-        }
-        setCast(castArr);
-
-        const dirArrFilter = credits.data.crew.filter(person => person.job === "Director");
-        let dirString = "";
-        for (let j = 0; j < dirArrFilter.length; j++) {
-            if (j === 0) {
-                dirString = dirArrFilter[j].original_name;
-            } else {
-                dirString = dirString + ", " + dirArrFilter[j].original_name;
+            const castArr = [];
+            for (let i = 0; i < credits.data.cast.length; i++) {
+                castArr.push({cast_id: credits.data.cast[i].cast_id, actor: credits.data.cast[i].name, character: credits.data.cast[i].character})
             }
-        }
-        setDirector(dirString);
+            setCast(castArr);
+
+            const crewArr = [];
+            console.log(credits.data.crew);
+            for (let a = 0; a < credits.data.crew.length; a++) {
+                crewArr.push({crew_id: credits.data.crew[a].id, name: credits.data.crew[a].name, job: credits.data.crew[a].job})
+            }
+            setCrew(crewArr);
+
+            const dirArrFilter = credits.data.crew.filter(person => person.job === "Director");
+            let dirString = "";
+            for (let j = 0; j < dirArrFilter.length; j++) {
+                if (j === 0) {
+                    dirString = dirArrFilter[j].original_name;
+                } else {
+                    dirString = dirString + ", " + dirArrFilter[j].original_name;
+                }
+            }
+            setDirector(dirString);
+
+            const keywords = await axios(
+                `https://api.themoviedb.org/3/movie/${filmid}/keywords?api_key=dbc0a6d62448554c27b6167ef7dabb1b&language=en-US`
+            );
+            console.log(keywords);
+            const keywordArr = [];
+            for (let k = 0; k < keywords.data.keywords.length; k++) {
+                keywordArr.push({keyword_id: keywords.data.keywords[k].id, keyword: keywords.data.keywords[k].name});
+            }
+            setKeywords(keywordArr);
+
         }
         
         
         fetchData();
-        // fetchCredits();
         return;
     }, []);
 
@@ -88,7 +177,8 @@ export default function Info() {
                         key={cast.cast_id}>
                         <Button 
                             size="small" 
-                            sx={{color: '#64748B'}}
+                            style={{minWidth: 0, margin: 5, paddingLeft: 10, paddingRight: 10}}
+                            sx={{color: '#64748B', backgroundColor: '#f2f2f2'}}
                         >{cast.actor}</Button>
                     </Tooltip>
                     </ThemeProvider>
@@ -96,6 +186,47 @@ export default function Info() {
             </div>
         );
     }
+
+    const generateCrew = () => {
+        return (
+            <div id="crewList">
+                {crew.map((crew) => (
+                    <ThemeProvider theme={themeCastButtons}>
+                    <Tooltip 
+                        title={crew.job} 
+                        arrow 
+                        placement="top" 
+                        key={crew.crew_id}>
+                        <Button 
+                            size="small" 
+                            style={{minWidth: 0, margin: 5, paddingLeft: 10, paddingRight: 10}}
+                            sx={{color: '#64748B', backgroundColor: '#f2f2f2'}}
+                        >{crew.name}</Button>
+                    </Tooltip>
+                    </ThemeProvider>
+                ))}
+            </div>
+        );
+    }
+
+    const generateKeywords = () => {
+        return (
+            <div id="keywordsList">
+                {keywords.map((keyword) => (
+                    <ThemeProvider theme={themeCastButtons}>
+                        <Button 
+                            size="small" 
+                            style={{minWidth: 0, margin: 5, paddingLeft: 10, paddingRight: 10}}
+                            sx={{color: '#64748B', backgroundColor: '#f2f2f2'}}
+                            key={keyword.keyword_id}
+                        >{keyword.keyword}</Button>
+                    </ThemeProvider>
+                ))}
+            </div>
+        );
+    }
+
+
 
     return (
       <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
@@ -110,16 +241,22 @@ export default function Info() {
                 <div className="col">
                     <h6>{tagline}</h6>
                     <p>{overview}</p>
-                    <br></br>
-                    <h6>CAST</h6>
-                    <hr style={{
-                        background: "#dee2e6",
-                        height: "1px",
-                        border: "none",
-                        marginTop: "0px",
-                        marginBottom: "5px",
-                    }} />
-                    <div id="castList">{generateCast()}</div>
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                        <Tab label="CAST" {...a11yProps(0)} style={{ minWidth: 0}}/>
+                        <Tab label="CREW" {...a11yProps(1)} style={{ minWidth: 0}}/>
+                        <Tab label="KEYWORDS" {...a11yProps(2)} style={{ minWidth: 0}}/>
+                    </Tabs>
+                    </Box>
+                    <TabPanel value={value} index={0}>
+                        {generateCast()}
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                        {generateCrew()}
+                    </TabPanel>
+                    <TabPanel value={value} index={2}>
+                        {generateKeywords()}
+                    </TabPanel>
                 </div>
             </div>
         </div>
