@@ -14,12 +14,12 @@ import { auth } from "./firebase";
 import Search from "./search/search";
 
 export default function Edit() {
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   // rating and date
   const [name, setName] = React.useState();
   const [year, setYear] = React.useState();
-  const [filmid, setFilmid] = React.useState();
+  const [filmid] = React.useState();
   const [rating, setRating] = React.useState(null);
   const [value1, setValue1] = React.useState(null);
   const [posterPath, setPosterPath] = React.useState(null);
@@ -127,7 +127,7 @@ export default function Edit() {
       <form onSubmit={onSubmit}>
         <div class="row">
             <div class="col-4 nopadding">
-                <div className="form-group"><img id="poster" src={posterPath} style={{width: 300}} class="img-fluid"/></div>
+                <div className="form-group"><img id="poster" src={posterPath} style={{width: 300}} class="img-fluid" alt="poster"/></div>
             </div>
             <div class="col">
                 <div className="form-group">

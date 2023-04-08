@@ -24,3 +24,32 @@
     display: block;
     transform: scale(-1, 1);
 }
+
+/* truncate text on list */
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+  
+td>a {
+white-space: nowrap;
+display: block;
+text-overflow: ellipsis;
+overflow: hidden;
+
+}
+
+td>a>span {
+white-space: nowrap;
+
+}
+
+tr b {
+    display: -webkit-box;
+    max-width: 100%;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    padding: 0 !important;
+    margin: 0 !important;
+}

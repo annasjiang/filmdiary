@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import blankposter from './poster.jpg';
 
@@ -16,11 +16,11 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 
 export default function Create() {
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   // rating and date
-  const [name, setName] = React.useState();
-  const [year, setYear] = React.useState();
-  const [filmid, setfilmid] = React.useState();
+  const [name] = React.useState();
+  const [year] = React.useState();
+  const [filmid] = React.useState();
   const [rating, setRating] = React.useState();
   const [value1, setValue1] = React.useState(dayjs(new Date()));
 
@@ -94,7 +94,7 @@ export default function Create() {
         <div class="row">
           <div class="col-4 nopadding">
               {/* placeholder poster for now!! */}
-              <img id="poster" src={blankposter} class="img-fluid" style={{width: 300}}/>
+              <img id="poster" src={blankposter} class="img-fluid" style={{width: 300}} alt="poster"/>
           </div>
         <div class="col">
           <form onSubmit={onSubmit}>

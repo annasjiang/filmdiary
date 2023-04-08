@@ -53,7 +53,6 @@ export default function View() {
   const [rating, setRating] = React.useState(null);
   const [value1, setValue1] = React.useState(null);
   const [posterPath, setPosterPath] = React.useState(null);
-  const [filmid, setFilmid] = React.useState();
 
   // review info
   const [form, setForm] = useState({
@@ -68,7 +67,7 @@ export default function View() {
   });
   const params = useParams();
   const navigate = useNavigate();
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
     async function fetchData() {
@@ -89,7 +88,6 @@ export default function View() {
       setValue1(record.date);
       setRating(record.rating);
       setPosterPath(record.poster);
-      setFilmid(record.filmid);
     }
     fetchData();
     return;
@@ -147,7 +145,7 @@ export default function View() {
       <div class="row">
         <div class="col-4 nopadding">
             {/* placeholder poster for now!! */}
-            <img src={posterPath} style={{width: 300}} class="img-fluid"/>
+            <img src={posterPath} style={{width: 300}} class="img-fluid" alt="poster"/>
         </div>
         <div class="col">
         <p class="text-muted"> watched on {value1}

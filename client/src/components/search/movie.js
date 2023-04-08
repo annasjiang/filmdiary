@@ -1,11 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import defaultposter from './defaultposter.jpeg';
-import * as ReactDOM from 'react-dom';
-import Search from "./search";
-import Movies from "./movies";
-
-import classes from "./movie.module.css";
-import { truncStr } from "./utils";
 
 const MovieCard = props => {
   const { title, poster_path, id, release_date} = props.item;
@@ -31,11 +25,10 @@ const MovieCard = props => {
       // hide after selecting search result
       document.getElementById('searchresults').style.visibility = "hidden";
     }}>
-      <td class="col-sm-1"><img src={posterthumb} style={{height: 80}}></img></td>
+      <td class="col-sm-1"><img src={posterthumb} style={{height: 80}} alt="poster"></img></td>
       <td><b>{title}</b> <p class="text-muted">({year})</p></td>
     </tr>
   );
-
 };
 
 export default MovieCard;

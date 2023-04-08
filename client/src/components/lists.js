@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Card, Grid, Table, TableBody, TableCell, TableContainer, TableRow, IconButton,} from "@mui/material";
 import blankposter from './poster.jpg';
 import './lists.css';
 
@@ -48,37 +47,36 @@ export default function Lists() {
   // get reviews
   const List = (props) => (
     <a href={`/list/${props.list._id}`} style={{ textDecoration: 'none', color: 'black'}}>
-    <TableRow> 
-      <TableCell class="avatars" style={{width:210}}>
-        {/* handle thumbnails */}
+    <tr> 
+      <td class="avatars" style={{width:210, marginTop: -0.5}}>
         <span class="avatar">
         {
           props.list.thumbnail3 === "" ? 
-          (<img src={blankposter} class="img-fluid"/>) : 
-          (<img src={props.list.thumbnail3} class="img-fluid"/>)
+          (<img src={blankposter} class="img-fluid" alt="poster"/>) : 
+          (<img src={props.list.thumbnail3} class="img-fluid" alt="poster"/>)
         }
         </span>
         <span class="avatar">
         {
           props.list.thumbnail2 === "" ? 
-          (<img src={blankposter} class="img-fluid"/>) : 
-          (<img src={props.list.thumbnail2} class="img-fluid"/>)
+          (<img src={blankposter} class="img-fluid" alt="poster"/>) : 
+          (<img src={props.list.thumbnail2} class="img-fluid" alt="poster"/>)
         }
         </span>
         <span class="avatar">
         {
           props.list.thumbnail1 === "" ? 
-          (<img src={blankposter} class="img-fluid"/>) : 
-          (<img src={props.list.thumbnail1} class="img-fluid"/>)
+          (<img src={blankposter} class="img-fluid" alt="poster"/>) : 
+          (<img src={props.list.thumbnail1} class="img-fluid" alt="poster"/>)
         }
         </span>
-      </TableCell>
+      </td>
 
-      <TableCell class="listinfo" style={{width:800}}>
-        <b>{props.list.name}</b> <br></br>
-        <p class="text-muted">{props.list.description}</p>
-      </TableCell>
-    </TableRow>
+      <td class="listinfo" style={{width:800}}>
+        <b>{props.list.name}</b> 
+        {/* <p class="text-muted">{props.list.description}</p> */}
+      </td>
+    </tr>
     </a>
   );
 
@@ -91,9 +89,9 @@ export default function Lists() {
       {/* <Grid item lg={12} justifyContent="center" display="flex"> */}
         {/* <Card> */}
           {/* <TableContainer>  */}
-        <Table className="listtable table table-responsive table-hover" style={{ marginTop: 20, }}>
-          <TableBody className="fullWidth">{listList()}</TableBody>
-        </Table>
+        <table className="listtable table table-responsive table-hover" style={{ marginTop: 20, }}>
+          <tbody className="fullWidth">{listList()}</tbody>
+        </table>
         {/* </TableContainer>  */}
         {/* </Card> */}
       {/* </Grid> */}

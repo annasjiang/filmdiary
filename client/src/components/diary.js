@@ -41,9 +41,9 @@ export default function Diary() {
       {/* use thumbnails */}
       <td class="col-md-2">
         {
-          props.record.poster == "http://localhost:3000/static/media/defaultposter.71253f31.jpeg" ? 
-          (<img src={defaultposter} class="img-fluid"/>) : 
-          (<img src={`http://image.tmdb.org/t/p/w185${props.record.poster.substring(34, 250)}`} class="img-fluid"/>)
+          props.record.poster === "http://localhost:3000/static/media/defaultposter.71253f31.jpeg" ? 
+          (<img src={defaultposter} class="img-fluid" alt="poster"/>) : 
+          (<img src={`http://image.tmdb.org/t/p/w185${props.record.poster.substring(34, 250)}`} class="img-fluid" alt="poster"/>)
         }
       </td>
       <td>

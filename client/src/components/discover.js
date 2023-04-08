@@ -51,7 +51,7 @@ export default function Discover() {
                   placement="bottom" 
                   >
                     <Link to={`/info/${film.filmid}`}>
-                      <img width="145px" src={film.poster} style={{paddingBottom: 10}}/>
+                      <img width="145px" src={film.poster} style={{paddingBottom: 10}} alt="poster"/>
                     </Link>
               </Tooltip>
               </Carousel.Item>

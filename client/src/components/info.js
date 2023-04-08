@@ -1,5 +1,5 @@
 import React, {useState, useEffect } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from 'axios';
 import defaultposter from './search/defaultposter.jpeg';
 import './info.css';
@@ -74,7 +74,6 @@ export default function Info() {
     };
 
     const params = useParams();
-    const navigate = useNavigate();
 
     const [title, setTitle] = useState("");
     const [year, setYear] = useState("");
@@ -254,7 +253,7 @@ export default function Info() {
             <p>Dir. {director} • {runtime} min</p>
             <div className="row">
                 <div className="col-4 nopadding">
-                    <img src={poster} style={{width: 300}} className="img-fluid"/>
+                    <img src={poster} style={{width: 300}} className="img-fluid" alt="poster"/>
                 </div>
                 <div className="col">
                     <h6>{tagline}</h6>

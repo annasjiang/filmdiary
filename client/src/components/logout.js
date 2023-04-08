@@ -15,7 +15,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function Dashboard() {
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
   const fetchUserName = async () => {
@@ -34,15 +34,6 @@ function Dashboard() {
     if (!user) return navigate("/");
     fetchUserName();
   }, [user, loading]);
-
-  const theme = createTheme({
-    typography: {
-      fontSize: 12,
-      h1: {
-        fontWeight: 800,
-      },
-    },
-  });
 
   const themeColor = createTheme({
     palette: {

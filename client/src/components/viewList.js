@@ -49,7 +49,7 @@ export default function ViewList() {
               }}
             >
               <TableCell component="th" scope="row" id="poster" className="col-sm-1">
-                <img id='addPosterToList' src={row.item["poster"]} style={{height :100}}></img>
+                <img id='addPosterToList' src={row.item["poster"]} style={{height :100}} alt="poster"></img>
               </TableCell>
               <TableCell component="th" scope="row" id="name" className="col-sm-10">
                 <TextField 
@@ -104,7 +104,7 @@ export default function ViewList() {
   });
   const params = useParams();
   const navigate = useNavigate();
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
     async function fetchData() {
@@ -186,7 +186,7 @@ export default function ViewList() {
     </div>
     <br></br>
     {
-      form.description == "" ? (<></>) : ( 
+      form.description === "" ? (<></>) : ( 
         <div className="container">
           <p>{form.description}</p> <br></br>
         </div>

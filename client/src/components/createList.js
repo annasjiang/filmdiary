@@ -9,7 +9,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 
 export default function CreateList() {
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   // table stuff
   const [rows, setRows] = useState([
     {
@@ -74,7 +74,7 @@ export default function CreateList() {
             hidden
             > 
             <TableCell component="th" scope="row" id="poster" className="col-sm-1">
-              <img id='addPosterToList' src={row.item["poster"]} style={{height :100}}></img>
+              <img id='addPosterToList' src={row.item["poster"]} style={{height :100}} alt="poster"></img>
             </TableCell>
             <TableCell component="th" scope="row" id="name" className="col-sm-7">
               <TextField 
@@ -107,7 +107,7 @@ export default function CreateList() {
               sx={{ '&:last-child td, &:last-child th': { border: 0 }}}
             > 
               <TableCell component="th" scope="row" id="poster" className="col-sm-1">
-                <img id='addPosterToList' src={row.item["poster"]} style={{height :100}}></img>
+                <img id='addPosterToList' src={row.item["poster"]} style={{height :100}} alt="poster"></img>
               </TableCell>
               <TableCell component="th" scope="row" id="name" className="col-sm-7">
                 <TextField 
@@ -138,6 +138,7 @@ export default function CreateList() {
       </Table>
     );
   }
+
   const [tableData, setTableData] = useState(generateTable());
 
   useEffect(() => {
@@ -227,8 +228,8 @@ export default function CreateList() {
           maxRows={10}
           variant="standard"
           InputProps={{ disableUnderline: true }}
-          inputProps={{style: {fontSize: 28, fontWeight: 500}}} // font size of input text
-          InputLabelProps={{style: {fontSize: 28, fontWeight: 500}}} // font size of input label
+          inputProps={{style: {fontSize: 28, lineHeight: 1.2, fontWeight: 500}}} // font size of input text
+          InputLabelProps={{style: {fontSize: 28, lineHeight: 1.2, fontWeight: 500}}} // font size of input label
           onChange={e => updateForm({ name: e.target.value })}
           type="text"
         /> 
