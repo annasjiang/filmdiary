@@ -13,6 +13,12 @@ FRONTEND
 - we included an admin login feature using Firebase, which restricts edit privileges to the owners of the diary
 - we use Axios to fetch results from API calls to TMDB, allowing us to access the details of any film
 
+## 🤝 Set Up
+- follow instructions to connect to your MongoDB database
+    - create a `config.env` file in `/server`
+    - we used "Connect Using VS Code" and set `ATLAS_URI = mongodb+srv://<username>:<password>@cluster0.4vid1ei.mongodb.net/test` and `PORT=4000`
+    - make sure to connect with your current IP address!
+
 ## 🏃🏻‍♀️ Instructions to Run
 - make sure `package-lock.json` and `node_modules` are deleted
 - run `npm install` in both client and server folder
