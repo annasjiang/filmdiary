@@ -1,103 +1,73 @@
 import React, { useEffect, useState } from "react";
-import { Card, Grid, Table, TableBody, TableCell, TableContainer, TableRow, IconButton,} from "@mui/material";
-import blankposter from './poster.jpg';
-import './lists.css';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import defaultposter from './search/defaultposter.jpeg';
+import Carousel from 'react-grid-carousel';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function Discover() {
-  const [lists, setLists] = useState([]);
+  const [trending, setTrending] = useState([{
+    filmid: "",
+    title: "",
+    poster: "",
+  }]);
 
-  // This method fetches the lists from the database.
   useEffect(() => {
-    async function getLists() {
-      const response = await fetch(`http://localhost:4000/list/`);
-      if (!response.ok) {
-        const message = `An error occured: ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-      const lists = await response.json();
-      setLists(lists);
+    async function fetchData() {
+        const trendFetch = await axios(
+            `https://api.themoviedb.org/3/trending/movie/day?api_key=dbc0a6d62448554c27b6167ef7dabb1b`
+        );
+
+        const trendingArr = [];
+        for (let i = 0; i < trendFetch.data.results.length; i++) {
+          const posterPath = trendFetch.data.results[i].poster_path != null ? `http://image.tmdb.org/t/p/w185${trendFetch.data.results[i].poster_path}` : defaultposter
+          trendingArr.push({
+            filmid: trendFetch.data.results[i].id, 
+            title: trendFetch.data.results[i].title, 
+            poster: posterPath
+          })
+        }
+        setTrending(trendingArr);
     }
-    getLists();
-    return; 
-  }, [lists.length]);
+    fetchData();
+    return;
+}, []);
 
-  // This method will delete a list
-  async function deleteList(deleteId) {
-    await fetch(`http://localhost:4000/${deleteId}`, {
-      method: "DELETE"
-    });
-
-    const newLists = lists.filter((el) => el._id !== deleteId);
-    setLists(newLists);
-  }
-
-  // This method will map out the lists on the table
-  function listList() {
-    return lists.map((list) => {
-      return (
-        <List
-          list={list}
-          deleteList={() => deleteList(list._id)}
-          key={list._id}
-        />
-      );
-    });
-  }
-
-  // get reviews
-  const List = (props) => (
-    <a href={`/list/${props.list._id}`} style={{ textDecoration: 'none', color: 'black'}}>
-    <TableRow> 
-      <TableCell class="avatars" style={{width:210}}>
-        {/* handle thumbnails */}
-        <span class="avatar">
-        {
-          props.list.thumbnail3 === "" ? 
-          (<img src={blankposter} class="img-fluid"/>) : 
-          (<img src={props.list.thumbnail3} class="img-fluid"/>)
-        }
-        </span>
-        <span class="avatar">
-        {
-          props.list.thumbnail2 === "" ? 
-          (<img src={blankposter} class="img-fluid"/>) : 
-          (<img src={props.list.thumbnail2} class="img-fluid"/>)
-        }
-        </span>
-        <span class="avatar">
-        {
-          props.list.thumbnail1 === "" ? 
-          (<img src={blankposter} class="img-fluid"/>) : 
-          (<img src={props.list.thumbnail1} class="img-fluid"/>)
-        }
-        </span>
-      </TableCell>
-
-      <TableCell class="listinfo" style={{width:800}}>
-        <b>{props.list.name}</b> <br></br>
-        <p class="text-muted">{props.list.description}</p>
-      </TableCell>
-    </TableRow>
-    </a>
+  const generateTrending = () => {
+    return (
+      <Carousel 
+        cols={5} 
+        rows={1} 
+        gap={5} 
+        loop 
+        showDots={true}
+        hideArrow={false}
+        >
+          {trending.map((film) => (
+            <Carousel.Item key={film.filmid}>
+              <Tooltip 
+                  title={film.title} 
+                  arrow 
+                  placement="bottom" 
+                  >
+                    <Link to={`/info/${film.filmid}`}>
+                      <img width="145px" src={film.poster} style={{paddingBottom: 10}}/>
+                    </Link>
+              </Tooltip>
+              </Carousel.Item>
+          ))}
+      </Carousel>
   );
+  }
 
-  // display reviews
   return (
-    <div class="table-container" style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
-      <h3>Recommendations</h3>
-      <div className="parent">
-      {/* <Grid container> */}
-      {/* <Grid item lg={12} justifyContent="center" display="flex"> */}
-        {/* <Card> */}
-          {/* <TableContainer>  */}
-        <Table className="listtable table table-responsive table-hover" style={{ marginTop: 20, }}>
-          <TableBody className="fullWidth">{listList()}</TableBody>
-        </Table>
-        {/* </TableContainer>  */}
-        {/* </Card> */}
-      {/* </Grid> */}
-      {/* </Grid> */}
+    <div className="table-container" style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
+      <h3 style={{paddingBottom: 10}}>Discover</h3>
+      <div>
+        <h5 style={{paddingLeft: 18}}>Trending</h5>
+        {generateTrending()}
+        <h5 style={{paddingLeft: 18, paddingTop: 20}}>Recommendations</h5>
+        {generateTrending()}
       </div>
     </div>
   );

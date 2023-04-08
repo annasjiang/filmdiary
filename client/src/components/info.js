@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef, useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import defaultposter from './search/defaultposter.jpeg';
@@ -7,7 +7,6 @@ import './info.css';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -36,13 +35,6 @@ function TabPanel(props) {
     const { children, value, index, ...other } = props;
   
     return (
-    //   <div
-    //     role="tabpanel"
-    //     hidden={value !== index}
-    //     id={`simple-tabpanel-${index}`}
-    //     aria-labelledby={`simple-tab-${index}`}
-    //     {...other}
-    //   >
     <StyledTabPanel
       role="tabpanel"
       hidden={value !== index}
@@ -55,7 +47,7 @@ function TabPanel(props) {
             <Typography>{children}</Typography>
           </Box>
         )}
-        </StyledTabPanel>
+    </StyledTabPanel>
     );
   }
   
@@ -74,6 +66,7 @@ function TabPanel(props) {
   
 
 export default function Info() {
+    // for tabs
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -88,7 +81,7 @@ export default function Info() {
     const [tagline, setTagline] = useState("");
     const [overview, setOverview] = useState("");
     const [poster, setPoster] = useState("");
-
+    const [runtime, setRuntime] = useState("");
     const [director, setDirector] = useState([]);
     const [cast, setCast] = useState([{
         cast_id: "",
@@ -99,6 +92,10 @@ export default function Info() {
         crew_id: "",
         name: "",
         job: "",
+    }]);
+    const [genres, setGenres] = useState([{
+        genre_id: "",
+        genre: "",
     }]);
     const [keywords, setKeywords] = useState([{
         keyword_id: "",
@@ -112,13 +109,19 @@ export default function Info() {
             const info = await axios(
                 `https://api.themoviedb.org/3/movie/${filmid}?api_key=dbc0a6d62448554c27b6167ef7dabb1b&language=en-US`
             );
-            // console.log(info.data);
             setTitle(info.data.title);
             setYear(info.data.release_date.substring(0, 4));
             setTagline(info.data.tagline.toUpperCase());
             setOverview(info.data.overview);
             const posterPath = info.data.poster_path != null ? `http://image.tmdb.org/t/p/original${info.data.poster_path}` : defaultposter
             setPoster(posterPath);
+            setRuntime(info.data.runtime);
+
+            const genreArr = [];
+            for (let b = 0; b < info.data.genres.length; b++) {
+                genreArr.push({genre_id: info.data.genres[b].id, genre: info.data.genres[b].name})
+            }
+            setGenres(genreArr);
 
             const credits = await axios(
                 `https://api.themoviedb.org/3/movie/${filmid}/credits?api_key=dbc0a6d62448554c27b6167ef7dabb1b&language=en-US`
@@ -209,6 +212,23 @@ export default function Info() {
         );
     }
 
+    const generateGenres = () => {
+        return (
+            <div id="keywordsList">
+                {genres.map((genre) => (
+                    <ThemeProvider theme={themeCastButtons}>
+                        <Button 
+                            size="small" 
+                            style={{minWidth: 0, margin: 5, paddingLeft: 10, paddingRight: 10}}
+                            sx={{color: '#64748B', backgroundColor: '#f2f2f2'}}
+                            key={genre.genre_id}
+                        >{genre.genre}</Button>
+                    </ThemeProvider>
+                ))}
+            </div>
+        );
+    }
+
     const generateKeywords = () => {
         return (
             <div id="keywordsList">
@@ -226,14 +246,12 @@ export default function Info() {
         );
     }
 
-
-
     return (
       <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
         <div className="container">
             <h3 style={{display: "inline", marginRight: 10}}>{title}</h3>
             <p className="text-muted" style={{fontSize: 22, display: "inline"}}>({year})</p>
-            <p>Dir. {director}</p>
+            <p>Dir. {director} • {runtime} min</p>
             <div className="row">
                 <div className="col-4 nopadding">
                     <img src={poster} style={{width: 300}} className="img-fluid"/>
@@ -245,7 +263,8 @@ export default function Info() {
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label="CAST" {...a11yProps(0)} style={{ minWidth: 0}}/>
                         <Tab label="CREW" {...a11yProps(1)} style={{ minWidth: 0}}/>
-                        <Tab label="KEYWORDS" {...a11yProps(2)} style={{ minWidth: 0}}/>
+                        <Tab label="GENRES" {...a11yProps(2)} style={{ minWidth: 0}}/>
+                        <Tab label="KEYWORDS" {...a11yProps(3)} style={{ minWidth: 0}}/>
                     </Tabs>
                     </Box>
                     <TabPanel value={value} index={0}>
@@ -255,6 +274,9 @@ export default function Info() {
                         {generateCrew()}
                     </TabPanel>
                     <TabPanel value={value} index={2}>
+                        {generateGenres()}
+                    </TabPanel>
+                    <TabPanel value={value} index={3}>
                         {generateKeywords()}
                     </TabPanel>
                 </div>

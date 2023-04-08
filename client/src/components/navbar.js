@@ -1,11 +1,8 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-
-// We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
 
 import logo from "./logo.png";
-
 import Button from '@mui/material/Button';
 import {IconButton} from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -81,11 +78,6 @@ export default function Navbar() {
           <li className="nav-item">
             <a className="nav-link" href="/discover">discover</a>
           </li>
-          {/* <li className="nav-item"> */}
-            {/* <a className="nav-link" href="/logout">log out</a> */}
-            {/* {user && <a className="nav-link" href="/logout">log out</a>}
-            {!user && <a className="nav-link" href="/login">log in</a>} */}
-          {/* </li> */}
         </ul>
         </div>
 
@@ -117,8 +109,6 @@ export default function Navbar() {
                 <Link to={`/createlist`} style={{ textDecoration: 'none', color: 'black'}}>
                 <MenuItem onClick={handleClose}>Film List</MenuItem></Link>
               </Menu>
-            {/* </li>
-            <li> */}
               <ThemeProvider theme={theme}>
                 <IconButton 
                   color="primary"
@@ -177,11 +167,6 @@ export default function Navbar() {
           <li className="nav-item">
             <a className="nav-link" href="/discover">discover</a>
           </li>
-          {/* <li className="nav-item"> */}
-            {/* <a className="nav-link" href="/login">log in</a> */}
-            {/* {user && <a className="nav-link" href="/logout">log out</a>}
-            {!user && <a className="nav-link" href="/login">log in</a>} */}
-          {/* </li> */}
         </ul>
         </div>
 

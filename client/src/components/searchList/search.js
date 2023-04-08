@@ -1,8 +1,7 @@
-import React, { Component, useState, useRef } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
 import Movies from './movies';
-import { search } from './utils';
 import TextField from '@mui/material/TextField';
 
 class Search extends Component {
