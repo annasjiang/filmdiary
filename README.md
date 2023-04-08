@@ -14,10 +14,10 @@ FRONTEND
 - we use Axios to fetch results from API calls to TMDB, allowing us to access the details of any film
 
 ## 🤝 Set Up
+- create a `config.env` file in `/server`
 - follow instructions to connect to your MongoDB database
-    - create a `config.env` file in `/server`
-    - we used "Connect Using VS Code" and set `ATLAS_URI = mongodb+srv://<username>:<password>@cluster0.4vid1ei.mongodb.net/test` and `PORT=4000`
-    - make sure to connect with your current IP address!
+    - we used "Connect Using VS Code" and set `ATLAS_URI` to the generated link and `PORT=4000`
+    - make sure to connect with your current IP address on the MongoDB website
 
 ## 🏃🏻‍♀️ Instructions to Run
 - make sure `package-lock.json` and `node_modules` are deleted

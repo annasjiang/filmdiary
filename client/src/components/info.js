@@ -104,7 +104,6 @@ export default function Info() {
     useEffect(() => {
         async function fetchData() {
             const filmid = params.id.toString();
-            console.log(filmid);
             const info = await axios(
                 `https://api.themoviedb.org/3/movie/${filmid}?api_key=dbc0a6d62448554c27b6167ef7dabb1b&language=en-US`
             );
@@ -133,7 +132,6 @@ export default function Info() {
             setCast(castArr);
 
             const crewArr = [];
-            console.log(credits.data.crew);
             for (let a = 0; a < credits.data.crew.length; a++) {
                 crewArr.push({crew_id: credits.data.crew[a].id, name: credits.data.crew[a].name, job: credits.data.crew[a].job})
             }
@@ -153,7 +151,6 @@ export default function Info() {
             const keywords = await axios(
                 `https://api.themoviedb.org/3/movie/${filmid}/keywords?api_key=dbc0a6d62448554c27b6167ef7dabb1b&language=en-US`
             );
-            console.log(keywords);
             const keywordArr = [];
             for (let k = 0; k < keywords.data.keywords.length; k++) {
                 keywordArr.push({keyword_id: keywords.data.keywords[k].id, keyword: keywords.data.keywords[k].name});
