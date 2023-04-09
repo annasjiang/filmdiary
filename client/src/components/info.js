@@ -1,5 +1,5 @@
 import React, {useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from 'axios';
 import defaultposter from './search/defaultposter.jpeg';
 import './info.css';
@@ -13,6 +13,8 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { styled } from "@mui/system";
+
+import Carousel from 'react-grid-carousel';
 
 const themeCastButtons = createTheme({      
   typography: {
@@ -64,7 +66,6 @@ function TabPanel(props) {
     };
   }
   
-
 export default function Info() {
     // for tabs
     const [value, setValue] = React.useState(0);
@@ -100,13 +101,19 @@ export default function Info() {
         keyword_id: "",
         keyword: "",
     }]);
+    const [recs, setRecs] = useState([{
+        filmid: "",
+        title: "",
+        poster: "",
+    }]);
 
     useEffect(() => {
         async function fetchData() {
             const filmid = params.id.toString();
             const info = await axios(
                 `https://api.themoviedb.org/3/movie/${filmid}?api_key=dbc0a6d62448554c27b6167ef7dabb1b&language=en-US`
-            );
+            )
+
             setTitle(info.data.title);
             setYear(info.data.release_date.substring(0, 4));
             setTagline(info.data.tagline.toUpperCase());
@@ -157,12 +164,52 @@ export default function Info() {
             }
             setKeywords(keywordArr);
 
+            const recFetch = await axios(
+                `https://api.themoviedb.org/3/movie/${filmid}/similar?api_key=dbc0a6d62448554c27b6167ef7dabb1b&language=en-US`
+            );
+            const recArr = [];
+            for (let i = 0; i < recFetch.data.results.length; i++) {
+              const posterPath = recFetch.data.results[i].poster_path != null ? `http://image.tmdb.org/t/p/w185${recFetch.data.results[i].poster_path}` : defaultposter
+              recArr.push({
+                filmid: recFetch.data.results[i].id, 
+                title: recFetch.data.results[i].title, 
+                poster: posterPath
+              })
+            }
+            setRecs(recArr);
         }
         
         
         fetchData();
         return;
     }, []);
+
+    const generateRecs = () => {
+        return (
+          <Carousel 
+            cols={5} 
+            rows={1} 
+            gap={5} 
+            loop 
+            showDots={true}
+            hideArrow={false}
+            >
+              {recs.map((film) => (
+                <Carousel.Item key={film.filmid}>
+                  <Tooltip 
+                      title={film.title} 
+                      arrow 
+                      placement="bottom" 
+                      >
+                        <Link to={`/info/${film.filmid}`}>
+                          <img width="145px" src={film.poster} style={{paddingBottom: 10}} alt="poster"/>
+                        </Link>
+                  </Tooltip>
+                  </Carousel.Item>
+              ))}
+          </Carousel>
+      );
+    }
 
     const generateCast = () => {
         return (
@@ -278,6 +325,11 @@ export default function Info() {
                 </div>
             </div>
         </div>
+        <div>
+            <h5 style={{ paddingLeft: 18, paddingTop: 20 }}>Similar to {title}</h5>
+            {generateRecs()}
+          </div>
       </div>
+
     );
   }

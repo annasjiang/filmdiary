@@ -16,7 +16,7 @@ export default function Discover() {
     async function fetchData() {
         const trendFetch = await axios(
             `https://api.themoviedb.org/3/trending/movie/day?api_key=dbc0a6d62448554c27b6167ef7dabb1b`
-        );
+        )
 
         const trendingArr = [];
         for (let i = 0; i < trendFetch.data.results.length; i++) {
@@ -59,6 +59,7 @@ export default function Discover() {
       </Carousel>
   );
   }
+
 
   return (
     <div className="table-container" style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>

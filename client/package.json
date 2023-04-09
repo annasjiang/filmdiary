@@ -27,6 +27,7 @@
     "react-firebase-hooks": "^5.1.1",
     "react-foundation": "^0.9.7",
     "react-grid-carousel": "^1.0.1",
+    "react-native-web": "^0.19.2",
     "react-router": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-search-autocomplete": "^8.3.2",
