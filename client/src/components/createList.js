@@ -4,6 +4,7 @@ import Search from "./searchList/search";
 import { Card, Grid, Table, TableBody, TableCell, TableContainer, TableRow, IconButton,} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
+import dayjs from 'dayjs';
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
@@ -150,6 +151,7 @@ export default function CreateList() {
     name: "",
     description: "",
     list: [],
+    updated: "",
     thumbnail1: "",
     thumbnail2: "",
     thumbnail3: "",
@@ -187,6 +189,7 @@ export default function CreateList() {
     const newList = { ...form };
     newList.name = n;
     newList.list = JSON.stringify(items);
+    newList.updated = dayjs(new Date());
     if (arr.length > 0) {
       newList.thumbnail1 = arr[0].item.poster;
     }
@@ -209,7 +212,7 @@ export default function CreateList() {
       return;
     });
 
-    setForm({ name: "", description: "", list: "", thumbnail1: "", thumbnail2: "", thumbnail3: "" });
+    setForm({ name: "", description: "", list: "", updated: "", thumbnail1: "", thumbnail2: "", thumbnail3: "" });
     navigate("/lists");
   }
 

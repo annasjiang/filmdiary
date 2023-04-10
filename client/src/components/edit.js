@@ -41,7 +41,7 @@ export default function Edit() {
     date: "",
     rating: "",
     poster: "",
-    records: [],
+    reviews: [],
   });
   const params = useParams();
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ export default function Edit() {
   useEffect(() => {
     async function fetchData() {
       const id = params.id.toString();
-      const response = await fetch(`http://localhost:4000/record/${params.id.toString()}`);
+      const response = await fetch(`http://localhost:4000/review/${params.id.toString()}`);
 
       if (!response.ok) {
         const message = `An error has occured: ${response.statusText}`;
@@ -57,25 +57,25 @@ export default function Edit() {
         return;
       }
 
-      const record = await response.json();
-      if (!record) {
-        window.alert(`Record with id ${id} not found`);
+      const review = await response.json();
+      if (!review) {
+        window.alert(`Review with id ${id} not found`);
         navigate("/");
         return;
       }
 
       // set up saved values
-      setForm(record);
-      setName(record.name);
+      setForm(review);
+      setName(review.name);
       // trigger a click so the search bar displays the title
       if (document.getElementById('searchbar') != null) {
         document.getElementById('searchbar').click();
         document.getElementById('searchbar').dispatchEvent(new Event('click'));
       }
-      setValue1(record.date);
-      setRating(record.rating);
-      setPosterPath(record.poster);
-      setYear(record.year);
+      setValue1(review.date);
+      setRating(review.rating);
+      setPosterPath(review.poster);
+      setYear(review.year);
     }
 
     fetchData();
@@ -95,7 +95,7 @@ export default function Edit() {
     const d = dateRef.current.value;
     const dt = isNaN(d) ? d : format(new Date(+d), 'MM/dd/yyyy');
 
-    const editedPerson = {
+    const editedReview = {
       name: nameRef.current.value,
       year: document.getElementById('year-hidden').value,
       review: form.review,
@@ -108,7 +108,7 @@ export default function Edit() {
     // This will send a post request to update the data in the database.
     await fetch(`http://localhost:4000/update/${params.id}`, {
       method: "POST",
-      body: JSON.stringify(editedPerson),
+      body: JSON.stringify(editedReview),
       headers: {
         'Content-Type': 'application/json'
       },

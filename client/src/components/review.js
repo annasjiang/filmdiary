@@ -63,7 +63,7 @@ export default function View() {
     rating: "",
     poster: "",
     filmdid: "",
-    records: [],
+    reviews: [],
   });
   const params = useParams();
   const navigate = useNavigate();
@@ -72,29 +72,29 @@ export default function View() {
   useEffect(() => {
     async function fetchData() {
       const id = params.id.toString();
-      const response = await fetch(`http://localhost:4000/record/${params.id.toString()}`);
+      const response = await fetch(`http://localhost:4000/review/${params.id.toString()}`);
       if (!response.ok) {
         const message = `An error has occured: ${response.statusText}`;
         window.alert(message);
         return;
       }
-      const record = await response.json();
-      if (!record) {
-        window.alert(`Record with id ${id} not found`);
+      const review = await response.json();
+      if (!review) {
+        window.alert(`Review with id ${id} not found`);
         navigate("/");
         return;
       }
-      setForm(record);
-      setValue1(record.date);
-      setRating(record.rating);
-      setPosterPath(record.poster);
+      setForm(review);
+      setValue1(review.date);
+      setRating(review.rating);
+      setPosterPath(review.poster);
     }
     fetchData();
     return;
   }, [params.id, navigate]);
 
-  // This method will delete a record
-  async function deleteRecord(deleteId) {
+  // This method will delete a review
+  async function deleteReview(deleteId) {
       await fetch(`http://localhost:4000/${deleteId}`, {
           method: "DELETE"
       });
@@ -182,7 +182,7 @@ export default function View() {
       <ThemeProvider theme={theme}>
         <Button color="neutral" onClick={handleCloseAlert}>Cancel</Button>
         <Button color="error" onClick={() => {
-              deleteRecord(params.id);
+              deleteReview(params.id);
           }} autoFocus>
           Delete
         </Button>

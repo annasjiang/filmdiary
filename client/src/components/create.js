@@ -58,21 +58,21 @@ export default function Create() {
     const d = dateRef.current.value;
     const dt = isNaN(d) ? d : format(new Date(+d), 'MM/dd/yyyy');
 
-    // When a post request is sent to the create url, we'll add a new record to the database.
-    const newPerson = { ...form };
-    newPerson.name = nameRef.current.value;
-    newPerson.date= dt;
-    newPerson.rating = ratingRef.current.value;
-    newPerson.year = document.getElementById('year-hidden').value;
-    newPerson.poster = document.getElementById('poster').src;
-    newPerson.filmid = document.getElementById('filmid-hidden').value;
+    // When a post request is sent to the create url, we'll add a new review to the database.
+    const newReview = { ...form };
+    newReview.name = nameRef.current.value;
+    newReview.date= dt;
+    newReview.rating = ratingRef.current.value;
+    newReview.year = document.getElementById('year-hidden').value;
+    newReview.poster = document.getElementById('poster').src;
+    newReview.filmid = document.getElementById('filmid-hidden').value;
 
-    await fetch("http://localhost:4000/record/add", {
+    await fetch("http://localhost:4000/review/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newPerson),
+      body: JSON.stringify(newReview),
     })
     .catch(error => {
       window.alert(error);

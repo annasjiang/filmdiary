@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Search from "./searchList/search";
 import { Card, Grid, Table, TableBody, TableCell, TableContainer, TableRow, IconButton,} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import dayjs from 'dayjs';
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
@@ -207,7 +208,6 @@ async function onSubmit(e) {
   e.preventDefault();
 
   let arr = [];
-    // if (rows[rows.length - 1].item === "") {
     if (rows[0].item["title"] === "") {
       arr = rows.slice(1, rows.length);
     } else {
@@ -223,6 +223,7 @@ async function onSubmit(e) {
     name: form.name,
     description: form.description,
     list: [],
+    updated: dayjs(new Date()),
     thumbnail1: "",
     thumbnail2: "",
     thumbnail3: "",

@@ -1,8 +1,8 @@
 const express = require("express");
 
-// recordRoutes is an instance of the express router.
+// listRoutes is an instance of the express router.
 // We use it to define our routes.
-// The router will be added as a middleware and will take control of requests starting with path /record.
+// The router will be added as a middleware and will take control of requests starting with path /list.
 const listRoutes = express.Router();
 
 // This will help us connect to the database
@@ -12,20 +12,20 @@ const dbo = require("../db/conn");
 const ObjectId = require("mongodb").ObjectId;
 
 
-// This section will help you get a list of all the records.
+// This section will help you get a list of all the lists.
 listRoutes.route("/list").get(function (req, res) {
   let db_connect = dbo.getDb("filmdiary");
   db_connect
     .collection("lists")
     .find({})
-    .sort( { "_id": -1 } )
+    .sort( { "updated": -1 } )
     .toArray(function (err, result) {
       if (err) throw err;
       res.json(result);
     });
 });
 
-// This section will help you get a single record by id
+// This section will help you get a single list by id
 listRoutes.route("/list/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
@@ -37,13 +37,14 @@ listRoutes.route("/list/:id").get(function (req, res) {
       });
 });
 
-// This section will help you create a new record.
+// This section will help you create a new list.
 listRoutes.route("/list/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
     name: req.body.name,
     description: req.body.description,
     list: req.body.list,
+    updated: req.body.updated,
     thumbnail1: req.body.thumbnail1,
     thumbnail2: req.body.thumbnail2,
     thumbnail3: req.body.thumbnail3,
@@ -54,7 +55,7 @@ listRoutes.route("/list/add").post(function (req, response) {
   });
 });
 
-// This section will help you update a record by id.
+// This section will help you update a list by id.
 listRoutes.route("/updatelist/:id").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
@@ -63,6 +64,7 @@ listRoutes.route("/updatelist/:id").post(function (req, response) {
       name: req.body.name,
       description: req.body.description,
       list: req.body.list,
+      updated: req.body.updated,
       thumbnail1: req.body.thumbnail1,
       thumbnail2: req.body.thumbnail2,
       thumbnail3: req.body.thumbnail3,
@@ -77,7 +79,7 @@ listRoutes.route("/updatelist/:id").post(function (req, response) {
     });
 });
 
-// This section will help you delete a record
+// This section will help you delete a list
 listRoutes.route("/delete/:id").delete((req, response) => {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
