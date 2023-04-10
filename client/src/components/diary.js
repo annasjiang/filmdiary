@@ -48,7 +48,7 @@ export default function Diary() {
       </td>
       <td>
         <b style={{display: "inline", marginRight: 5}}>{props.record.name}</b>
-        <p className='text-muted' style={{fontSize: 14, display: "inline"}}>({props.record.year})</p> 
+        <p className='text-muted' style={{fontSize: 14, display: "inline"}}> ({props.record.year})</p> 
         <br></br>
         <p class="text-muted">watched on {props.record.date}</p>
         <Rating

@@ -1,5 +1,5 @@
 import React, {useState, useEffect } from 'react';
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from 'axios';
 import defaultposter from './search/defaultposter.jpeg';
 import './info.css';
@@ -102,7 +102,7 @@ export default function Info() {
         keyword: "",
     }]);
     const [recs, setRecs] = useState([{
-        filmid: "",
+        rec_id: "",
         title: "",
         poster: "",
     }]);
@@ -171,7 +171,7 @@ export default function Info() {
             for (let i = 0; i < recFetch.data.results.length; i++) {
               const posterPath = recFetch.data.results[i].poster_path != null ? `http://image.tmdb.org/t/p/w185${recFetch.data.results[i].poster_path}` : defaultposter
               recArr.push({
-                filmid: recFetch.data.results[i].id, 
+                rec_id: recFetch.data.results[i].id, 
                 title: recFetch.data.results[i].title, 
                 poster: posterPath
               })
@@ -192,18 +192,19 @@ export default function Info() {
             gap={5} 
             loop 
             showDots={true}
+            dotColorActive={'#64748B'}
             hideArrow={false}
             >
               {recs.map((film) => (
-                <Carousel.Item key={film.filmid}>
+                <Carousel.Item key={film.rec_id}>
                   <Tooltip 
                       title={film.title} 
                       arrow 
                       placement="bottom" 
                       >
-                        <Link to={`/info/${film.filmid}`}>
+                        <a href={`/info/${film.rec_id}`}>
                           <img width="145px" src={film.poster} style={{paddingBottom: 10}} alt="poster"/>
-                        </Link>
+                        </a>
                   </Tooltip>
                   </Carousel.Item>
               ))}
@@ -289,6 +290,26 @@ export default function Info() {
         );
     }
 
+    const ReadMore = ({ children }) => {
+        const text = children;
+        const needReadMore = text.length > 250;
+        const [isReadMore, setIsReadMore] = useState(true);
+        const toggleReadMore = () => {
+          setIsReadMore(!isReadMore);
+        };
+        return (
+            needReadMore ? (
+            <p className="text">
+                {isReadMore ? text.slice(0, 250) : text}
+                <span onClick={toggleReadMore} className="read-or-hide" style={{color: '#1976d2', cursor: 'pointer'}}>
+                {isReadMore ? "...read more" : " show less"}
+                </span>
+            </p> ) : (
+                <p>{text}</p>
+            )
+        );
+      };
+
     return (
       <div style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
         <div className="container">
@@ -297,11 +318,11 @@ export default function Info() {
             <p>Dir. {director} • {runtime} min</p>
             <div className="row">
                 <div className="col-4 nopadding">
-                    <img src={poster} style={{width: 300}} className="img-fluid" alt="poster"/>
+                    <img src={poster} style={{width: 300, paddingBottom: 10}} className="img-fluid" alt="poster"/>
                 </div>
                 <div className="col">
                     <h6>{tagline}</h6>
-                    <p>{overview}</p>
+                    <p><ReadMore>{overview}</ReadMore></p>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label="CAST" {...a11yProps(0)} style={{ minWidth: 0}}/>

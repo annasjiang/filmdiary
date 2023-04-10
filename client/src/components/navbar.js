@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
+import './navbar.css';
 
 import logo from "./logo.png";
 import Button from '@mui/material/Button';
@@ -66,7 +67,7 @@ export default function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div className="collapse navbar-collapse centerLinksPls" id="navbarNav">
             <ul className="navbar-nav">
           <li className="nav-item">
             <a className="nav-link" href="/diary">diary</a>
@@ -155,18 +156,18 @@ export default function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-          <li className="nav-item">
-            <a className="nav-link" href="/diary">diary</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/lists">lists</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/discover">discover</a>
-          </li>
-        </ul>
+        <div className="collapse navbar-collapse centerLinksPls" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <a className="nav-link" href="/diary">diary</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/lists">lists</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/discover">discover</a>
+            </li>
+          </ul>
         </div>
 
         <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" >
@@ -203,4 +204,3 @@ export default function Navbar() {
     )
   );
 }
-

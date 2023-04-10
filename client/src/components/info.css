@@ -1,14 +1,14 @@
 #castList {
-    max-height: 160px;
+    max-height: 165px;
     overflow: scroll;
 }
 
 #crewList {
-    max-height: 160px;
+    max-height: 165px;
     overflow: scroll;
 }
 
 #keywordsList {
-    max-height: 160px;
+    max-height: 165px;
     overflow: scroll;
 }

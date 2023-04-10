@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import defaultposter from './search/defaultposter.jpeg';
 import Carousel from 'react-grid-carousel';
@@ -41,6 +40,7 @@ export default function Discover() {
         gap={5} 
         loop 
         showDots={true}
+        dotColorActive={'#64748B'}
         hideArrow={false}
         >
           {trending.map((film) => (
@@ -50,9 +50,9 @@ export default function Discover() {
                   arrow 
                   placement="bottom" 
                   >
-                    <Link to={`/info/${film.filmid}`}>
+                    <a href={`/info/${film.filmid}`}>
                       <img width="145px" src={film.poster} style={{paddingBottom: 10}} alt="poster"/>
-                    </Link>
+                    </a>
               </Tooltip>
               </Carousel.Item>
           ))}
@@ -68,7 +68,7 @@ export default function Discover() {
         <h5 style={{paddingLeft: 18}}>Trending</h5>
         {generateTrending()}
         <h5 style={{paddingLeft: 18, paddingTop: 20}}>Recommendations</h5>
-        {generateTrending()}
+        <p>// TODO</p>
       </div>
     </div>
   );
