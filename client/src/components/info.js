@@ -346,10 +346,10 @@ export default function Info() {
                 </div>
             </div>
         </div>
-        <div>
+        <div style={{paddingBottom: 20}}>
             <h5 style={{ paddingLeft: 18, paddingTop: 20 }}>Similar to {title}</h5>
             {generateRecs()}
-          </div>
+        </div>
       </div>
 
     );

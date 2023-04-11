@@ -11,6 +11,8 @@ export default function Discover() {
     poster: "",
   }]);
 
+  const [recommendations, setRecommendations] = useState([]);
+
   useEffect(() => {
     async function fetchData() {
         const trendFetch = await axios(
@@ -30,7 +32,7 @@ export default function Discover() {
     }
     fetchData();
     return;
-  }, []);
+  }, [trending.length]);
 
   const generateTrending = () => {
     return (
@@ -60,6 +62,48 @@ export default function Discover() {
   );
   }
 
+  // get recs from database
+  useEffect(() => {
+    async function getRecommendations() {
+      // TODO: CHANGE REVIEW TO RECOMMENDATIONS (routes)
+      const response = await fetch(`http://localhost:4000/review/`);
+      if (!response.ok) {
+        const message = `An error occured: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+      const recommendations = await response.json();
+      setRecommendations(recommendations);
+    }
+    getRecommendations();
+    return; 
+  }, [recommendations.length]);
+
+  function recommendationList() {
+    return recommendations.map((recommendation) => {
+      return (
+        <Carousel.Item>
+        <Recommendation
+          recommendation={recommendation}
+          key={recommendation._id}
+        />
+        </Carousel.Item>
+      );
+    });
+  }
+
+  // TODO: NEED TO CHANGE FIELDS TO MATCH RECC COLLECTION NAMES
+  const Recommendation = (props) => (
+      <Tooltip 
+        title={props.recommendation.name} 
+        arrow 
+        placement="bottom">
+        <a href={`/info/${props.recommendation.filmid}`}>
+          <img width="145px" src={props.recommendation.poster} style={{paddingBottom: 10}} alt="poster"/>
+        </a>
+      </Tooltip>
+  );
+
   return (
     <div className="table-container" style={{marginTop: 100, marginLeft: 300, marginRight: 300}}>
       <h3 style={{paddingBottom: 10}}>Discover</h3>
@@ -67,7 +111,17 @@ export default function Discover() {
         <h5 style={{paddingLeft: 18}}>Trending</h5>
         {generateTrending()}
         <h5 style={{paddingLeft: 18, paddingTop: 20}}>Recommendations</h5>
-        <p>// TODO</p>
+        <Carousel 
+        cols={5} 
+        rows={1} 
+        gap={5} 
+        loop 
+        showDots={true}
+        dotColorActive={'#64748B'}
+        hideArrow={false}
+        >
+          {recommendationList()}
+        </Carousel>
       </div>
     </div>
   );

@@ -89,15 +89,12 @@ reviewRoutes.route("/:id").delete((req, response) => {
   });
 });
 
-// This section will help you get a list of recent reviews.
-reviewRoutes.route("/recentreviews").get(function (req, res) {
+// This section will help you get recommendations based on reviews
+reviewRoutes.route("/recommendations").get(function (req, res) {
   let db_connect = dbo.getDb("filmdiary");
-  var query = { };
   db_connect
-    .collection("reviews")
-    .find(query)
-    .sort( { "date": -1, "_id": -1 } )
-    .limit( 5 )
+    .collection("recommendations")
+    .find({})
     .toArray(function (err, result) {
       if (err) throw err;
       res.json(result);
