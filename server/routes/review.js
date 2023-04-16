@@ -52,6 +52,13 @@ reviewRoutes.route("/review/add").post(function (req, response) {
     if (err) throw err;
     response.json(res);
   });
+  // db_connect
+  // .collection("recs")
+  // .find({})
+  // .toArray(function (err, result) {
+  //   if (err) throw err;
+  //   res.json(result);
+  // });
 });
 
 // This section will help you update a review by id.
@@ -93,7 +100,7 @@ reviewRoutes.route("/:id").delete((req, response) => {
 reviewRoutes.route("/recommendations").get(function (req, res) {
   let db_connect = dbo.getDb("filmdiary");
   db_connect
-    .collection("recommendations")
+    .collection("recs")
     .find({})
     .toArray(function (err, result) {
       if (err) throw err;

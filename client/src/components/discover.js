@@ -66,7 +66,7 @@ export default function Discover() {
   useEffect(() => {
     async function getRecommendations() {
       // TODO: CHANGE REVIEW TO RECOMMENDATIONS (routes)
-      const response = await fetch(`http://localhost:4000/review/`);
+      const response = await fetch(`http://localhost:4000/recommendations/`);
       if (!response.ok) {
         const message = `An error occured: ${response.statusText}`;
         window.alert(message);
@@ -80,12 +80,12 @@ export default function Discover() {
   }, [recommendations.length]);
 
   function recommendationList() {
-    return recommendations.map((recommendation) => {
+    return recommendations.map((recs) => {
       return (
         <Carousel.Item>
         <Recommendation
-          recommendation={recommendation}
-          key={recommendation._id}
+          recs={recs}
+          key={recs._id}
         />
         </Carousel.Item>
       );
@@ -95,11 +95,11 @@ export default function Discover() {
   // TODO: NEED TO CHANGE FIELDS TO MATCH RECC COLLECTION NAMES
   const Recommendation = (props) => (
       <Tooltip 
-        title={props.recommendation.name} 
+        title={props.recs.name} 
         arrow 
         placement="bottom">
-        <a href={`/info/${props.recommendation.filmid}`}>
-          <img width="145px" src={props.recommendation.poster} style={{paddingBottom: 10}} alt="poster"/>
+        <a href={`/info/${props.recs.filmid}`}>
+          <img width="145px" src={"http://image.tmdb.org/t/p/w185"+props.recs.poster} style={{paddingBottom: 10}} alt="poster"/>
         </a>
       </Tooltip>
   );
