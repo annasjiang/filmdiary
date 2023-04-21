@@ -16,7 +16,7 @@ FRONTEND
 ## 🤠 Features
 - ability to create, edit, and delete reviews/lists
     - use live search feature to find a film and get basic info (official title, year, poster, etc)
-    - add/edit descriptions, rating, date watched
+    - add/edit titles, descriptions, rating, date watched
 - access more information about a film by clicking on a film title in diary or lists
     - includes director(s), runtime, description, cast, crew, genres, and keywords
     - hover over a cast or crew name to get information about their role
