@@ -13,8 +13,18 @@ FRONTEND
 - we included an admin login feature using Firebase, which restricts edit privileges to the owners of the diary
 - we use Axios to fetch results from API calls to TMDB, allowing us to access the details of any film
 
+## 🤠 Features
+- ability to create, edit, and delete reviews/lists
+    - use live search feature to find a film and get basic info (official title, year, poster, etc)
+    - add/edit descriptions, rating, date watched
+- access more information about a film by clicking on a film title in diary or lists
+    - includes director(s), runtime, description, cast, crew, genres, and keywords
+    - hover over a cast or crew name to get information about their role
+- discover page includes updated trending movies from TMDB and recommendations based on watch history
+- admin access ensures that only the owners of the diary (Anna & Allison) can create/edit/delete reviews 
+
 ## 🤝 Set Up
-- create a `config.env` file in `/server`
+- create a new `config.env` file in `/server`
 - follow instructions to connect to your MongoDB database
     - we used "Connect Using VS Code" and set `ATLAS_URI` to the generated link and `PORT=4000`
     - make sure to connect with your current IP address on the MongoDB website
@@ -24,3 +34,4 @@ FRONTEND
 - run `npm install` in both client and server folder
     - if there are still errors when running, run `- npm install node --reinstall-packages-from=node` in client folder
 - run `npm start` in both client and server folder
+
