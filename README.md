@@ -14,12 +14,13 @@ FRONTEND
 - we use Axios to fetch results from API calls to TMDB, allowing us to access the details of any film
 
 ## 🤠 Features
-- ability to create, edit, and delete reviews/lists
+- ability to view, create, edit, and delete reviews/lists
     - use live search feature to find a film and get basic info (official title, year, poster, etc)
     - add/edit titles, descriptions, rating, date watched
 - access more information about a film by clicking on a film title in diary or lists
     - includes director(s), runtime, description, cast, crew, genres, and keywords
     - hover over a cast or crew name to get information about their role
+    - similar movies are displayed at the bottom of the page as well
 - discover page includes updated trending movies from TMDB and recommendations based on watch history
 - admin access ensures that only the owners of the diary (Anna & Allison) can create/edit/delete reviews 
 
